@@ -39,6 +39,7 @@ set number
 set ignorecase
 set smartcase
 set relativenumber
+set splitright
 
 set numberwidth=1
 

@@ -89,6 +89,7 @@ alias dev="cd  ~/Developer"
 alias v="/usr/local/bin/nvim"
 alias gt="git status"
 alias gdev="cd ~/Developer/go"
+alias t="tree"
 
   
 export GOPATH=~/Developer/go
