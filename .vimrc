@@ -2,17 +2,20 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 	Plug 'fatih/vim-go'
-	Plug 'ctrlpvim/ctrlp.vim'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'vim-airline/vim-airline'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'JamshedVesuna/vim-markdown-preview'
-    Plug 'airblade/vim-gitgutter'
+	Plug 'airblade/vim-gitgutter'
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'zchee/deoplete-go', { 'do': 'make'}
 	Plug 'rakr/vim-one'
+	Plug 'NLKNguyen/papercolor-theme'
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'christoomey/vim-tmux-navigator'
-	Plug 'sbdchd/neoformat'
+	Plug 'majutsushi/tagbar'
+	Plug 'w0rp/ale'
+	Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " BASIC SETTINGS
@@ -26,6 +29,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set background=dark
 colorscheme one
+"colorscheme PaperColor
 
 set ignorecase
 set smartcase
@@ -40,6 +44,8 @@ set ignorecase
 set smartcase
 set relativenumber
 set splitright
+set completeopt="menu"
+set laststatus=2
 
 set numberwidth=1
 
@@ -52,7 +58,13 @@ nnoremap <leader>Y "+yg_
 nnoremap <leader>y "+y
 nnoremap <leader>yy "+yy
 
-set guifont=Sauce\ Code\ Powerline\ Medium:h14
+" Move quickfix window to bottom of window layout
+autocmd FileType qf wincmd J
+
+nmap j gj
+nmap k gk
+
+set guifont=Source\ Code\ Powerline\ Medium:h14
 
 if has("statusline")
 	set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
@@ -88,8 +100,10 @@ let g:go_auto_sameids = 0
 
 let g:go_fmt_command = "goimports"
 
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
+"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 let g:go_metalinter_command = ""
 let g:go_metalinter_enabled = ['vet', 'golint']
@@ -112,11 +126,17 @@ autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 autocmd FileType go nmap <C-\> :GoDecls<CR>
 autocmd FileType go nmap <Leader>w :GoAlternate<CR>
-autocmd FileType go nmap <Leader>f :GoRename
+" Conflicted with FZF <Leader>f
+"autocmd FileType go nmap <Leader>f :GoRename
 autocmd FileType go nmap <Leader>e :GoErrCheck<CR>
 
 autocmd FileType go nmap <Leader>q <Plug>(go-info)
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+" Jump between errors in quickfix list
+map <C-n> :cnext<CR>
+map <C-p> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
 
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -170,6 +190,7 @@ set signcolumn=yes
 " AIRLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme='one'
+"let g:airline_theme='papercolor'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,3 +210,38 @@ let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters = {
+\   'go': ['golint'],
+\}
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+
+function! LinterStatus() abort
+	let l:counts = ale#statusline#Count(bufnr(''))
+
+	let l:all_errors = l:counts.error + l:counts.style_error
+	let l:all_non_errors = l:counts.total - l:all_errors
+
+	return l:counts.total == 0 ? 'OK' : printf(
+	\   '%dW %dE',
+	\   all_non_errors,
+	\   all_errors
+	\)
+endfunction
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TAGBAR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <F8> :TagbarToggle<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FZF
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap ; :Buffers<CR>
+nmap <Leader>f :Files<CR>

@@ -86,12 +86,11 @@ source $ZSH/oh-my-zsh.sh
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 alias dev="cd  ~/Developer"
+alias godev="cd ~/Developer/go"
 alias v="/usr/local/bin/nvim"
 alias gt="git status"
-alias gdev="cd ~/Developer/go"
 alias t="tree"
 
-  
 export GOPATH=~/Developer/go
 export PATH=$PATH:$GOPATH/bin
 
