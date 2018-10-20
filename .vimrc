@@ -3,20 +3,30 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 	Plug 'fatih/vim-go'
 	Plug 'easymotion/vim-easymotion'
-	Plug 'vim-airline/vim-airline'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'JamshedVesuna/vim-markdown-preview'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'zchee/deoplete-go', { 'do': 'make'}
-	Plug 'rakr/vim-one'
-	Plug 'NLKNguyen/papercolor-theme'
-	Plug 'vim-airline/vim-airline-themes'
+	Plug 'itchyny/lightline.vim'
 	Plug 'christoomey/vim-tmux-navigator'
-	Plug 'majutsushi/tagbar'
-	Plug 'w0rp/ale'
 	Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-fugitive'
+	Plug 'w0rp/ale'
+	Plug 'scrooloose/nerdtree'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+	Plug 'jiangmiao/auto-pairs'
+
+	" Colorschemes
+	Plug 'sonph/onehalf', {'rtp': 'vim/'}
 call plug#end()
+
+let g:python2_host_prog = '/usr/local/bin/python2.7'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 
 " BASIC SETTINGS
 language en_US
@@ -25,11 +35,8 @@ filetype on
 syntax enable
 syntax on
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
+colorscheme onehalfdark
 set background=dark
-colorscheme one
-"colorscheme PaperColor
 
 set ignorecase
 set smartcase
@@ -52,7 +59,12 @@ set numberwidth=1
 " Set leader key
 let mapleader=","
 
+" Movements
+nnoremap <C-j> 10j
+nnoremap <C-k> 10k
+
 " Copy to clipboard
+set clipboard=unnamed
 vnoremap <leader>y "+y
 nnoremap <leader>Y "+yg_
 nnoremap <leader>y "+y
@@ -61,14 +73,9 @@ nnoremap <leader>yy "+yy
 " Move quickfix window to bottom of window layout
 autocmd FileType qf wincmd J
 
-nmap j gj
-nmap k gk
-
-set guifont=Source\ Code\ Powerline\ Medium:h14
-
-if has("statusline")
-	set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
-endif
+autocmd FileType javascript :setlocal sw=2 ts=2 sts=2
+autocmd FileType html :setlocal sw=2 ts=2 sts=2
+autocmd FileType vue :setlocal sw=2 ts=2 sts=2
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,34 +92,31 @@ set smartindent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GO
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_structs = 1
+"let g:go_highlight_types = 1
 
-let g:syntastic_aggregate_errors = 1
-
-let g:go_auto_sameids = 0
-
+"let g:go_auto_sameids = 0
 let g:go_fmt_command = "goimports"
+"let g:go_list_type = "quickfix"
 
-let g:go_list_type = "quickfix"
-
-"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-let g:go_metalinter_command = ""
-let g:go_metalinter_enabled = ['vet', 'golint']
-let g:go_metalinter_path = "./..."
-
-let g:go_metalinter_enabled = ['vet', 'golint', 'deadcode', 'errcheck']
+"let g:go_metalinter_autosave = 0
+"let g:go_metalinter_command = ""
+"let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+"let g:go_metalinter_path = "./..."
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+"let g:go_fmt_fail_silently = 1
 
 " Function signature in status bar
 "let g:go_auto_type_info = 1
+
+au FileType go nmap <F9> :GoCoverageToggle -short<cr>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GO KEYBINDINGS
@@ -134,8 +138,8 @@ autocmd FileType go nmap <Leader>q <Plug>(go-info)
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
 
 " Jump between errors in quickfix list
-map <C-n> :cnext<CR>
-map <C-p> :cprevious<CR>
+map <C-]> :cnext<CR>
+map <C-[> :cprevious<CR>
 nnoremap <leader>a :cclose<CR>
 
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
@@ -170,7 +174,8 @@ map <Leader>k <Plug>(easymotion-k)
 " NERDCOMMENTER
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:NERDCompactSexyComs = 1
-
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,18 +191,10 @@ let vim_markdown_preview_github=1
 set signcolumn=yes
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AIRLINE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme='one'
-"let g:airline_theme='papercolor'
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " DEOPLETE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Path to python interpreter for neovim
-let g:python3_host_prog  = '/usr/local/bin/python3'
 " Skip the check of neovim module
 let g:python3_host_skip_check = 1
 
@@ -210,38 +207,60 @@ let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ALE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters = {
-\   'go': ['golint'],
-\}
-
-" Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
-
-function! LinterStatus() abort
-	let l:counts = ale#statusline#Count(bufnr(''))
-
-	let l:all_errors = l:counts.error + l:counts.style_error
-	let l:all_non_errors = l:counts.total - l:all_errors
-
-	return l:counts.total == 0 ? 'OK' : printf(
-	\   '%dW %dE',
-	\   all_non_errors,
-	\   all_errors
-	\)
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TAGBAR
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F8> :TagbarToggle<CR>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap ; :Buffers<CR>
 nmap <Leader>f :Files<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LIGHTLINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+\ 'colorscheme': 'onehalfdark',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
+\ },
+\ 'component': {
+\   'charvaluehex': '0x%B'
+\ },
+\ }
+
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
+let s:palette.inactive.middle = s:palette.normal.middle
+let s:palette.tabline.middle = s:palette.normal.middle
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {'go': ['gometalinter']}
+let g:ale_go_gometalinter_options = '--fast'
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['vue'] = ['prettier']
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
+"let g:ale_lint_delay = '5s'
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_enter = 0
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
