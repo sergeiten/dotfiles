@@ -1,18 +1,21 @@
 export ZSH=~/.oh-my-zsh
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="dracula"
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="spaceship"
 
-plugins=(git bundler osx zsh-autosuggestions)
+plugins=(git bundler osx zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dev="cd  ~/Developer"
 alias godev="cd ~/Developer/go"
-alias v="/usr/local/bin/nvim"
+alias v="/usr/local/Cellar/vim/8.1.1300/bin/vim"
 alias gt="git status"
 alias t="tree"
 alias vc="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+alias dev-tmux="~/dev-tmux"
 
 export GOPATH=${HOME}/Developer/go
 export GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
@@ -62,18 +65,19 @@ compdef _ssh color-ssh=ssh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 # To apply the command to CTRL-T as well
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+#export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
@@ -86,3 +90,11 @@ _fzf_compgen_dir() {
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Move next only if `homebrew` is installed
+if command -v brew >/dev/null 2>&1; then
+	# Load rupa's z if installed
+	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
+fi
