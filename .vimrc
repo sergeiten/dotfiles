@@ -1,27 +1,40 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
+
+    " Language support
 	Plug 'fatih/vim-go'
+    Plug 'tomlion/vim-solidity'
+
+    " Navigation
 	Plug 'easymotion/vim-easymotion'
 	Plug 'scrooloose/nerdcommenter'
-	"Plug 'airblade/vim-gitgutter'
-	Plug 'itchyny/lightline.vim'
 	Plug 'christoomey/vim-tmux-navigator'
-    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-	Plug 'tpope/vim-surround'
-	Plug 'tpope/vim-fugitive'
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
-	"Plug 'jiangmiao/auto-pairs'
-	"Plug 'rust-lang/rust.vim'
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+
+    " JavaScript / JSX
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
-    Plug 'tomlion/vim-solidity'
-    Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'othree/yajs.vim'
 
 	" Colorschemes
-	Plug 'phanviet/vim-monokai-pro'
-    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'tyrannicaltoucan/vim-quantum'
+
+    " Utils
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'majutsushi/tagbar'
+    Plug 'kshenoy/vim-signature'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
+	Plug 'itchyny/lightline.vim'
+    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+    Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'liuchengxu/vista.vim'
+
+    " UI
+    Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 if has("gui_running")
@@ -29,31 +42,41 @@ if has("gui_running")
     set guifont=SourceCodePro-Light:h13
 else
     set t_Co=256
-    set term=screen-256color
+
+    if !has('nvim')
+        set term=screen-256color
+    endif
 endif
 
-imap <Tab> <C-P>
+
 
 " BASIC SETTINGS
 language en_US
 filetype plugin indent on
-set omnifunc=csscomplete#CompleteCSS
+
+" Auto remove trailing spaces
+autocmd BufWritePre * %s/\s\+$//e
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" FORCE SYNTAX
+autocmd BufNewFile,BufRead *.eslintrc set syntax=json
+autocmd BufNewFile,BufRead *.prettierrc set syntax=json
+autocmd BufNewFile,BufRead *.vue set syntax=javascript
 
 syntax enable
 syntax on
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
- 
+
 set background=dark
-colorscheme dracula
+colorscheme quantum
 
 set ignorecase
 set smartcase
 set hidden
-set cmdheight=2
+set cmdheight=1
 set updatetime=300
 set signcolumn=yes
 " don't give |ins-completion-menu| messages.
@@ -78,9 +101,6 @@ set autoread
 " remove scrollbars
 set guioptions=
 
-" Set leader key
-let mapleader=","
-
 " Copy to clipboard
 set clipboard=unnamed
 vnoremap <leader>y "+y
@@ -90,6 +110,55 @@ nnoremap <leader>yy "+yy
 
 " Move quickfix window to bottom of window layout
 autocmd FileType qf wincmd J
+
+" Set leader key
+let mapleader=","
+
+nnoremap <Leader><Leader>c :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>at :call FloatTerm()<CR>
+nnoremap <Leader>v :Vista coc<CR>
+
+" Floating Term
+let s:float_term_border_win = 0
+let s:float_term_win = 0
+function! FloatTerm()
+  " Configuration
+  let height = float2nr((&lines - 2) * 0.6)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns * 0.6)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+        \ 'relative': 'editor',
+        \ 'row': row - 1,
+        \ 'col': col - 2,
+        \ 'width': width + 4,
+        \ 'height': height + 2,
+        \ 'style': 'minimal'
+        \ }
+  let border_buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_border_win = nvim_open_win(border_buf, v:true, border_opts)
+  " Terminal Window
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+  let buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_win = nvim_open_win(buf, v:true, opts)
+  " Styling
+  hi FloatTermNormal term=None guibg=#2d3d45
+  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatTermNormal')
+  call setwinvar(s:float_term_win, '&winhl', 'Normal:FloatTermNormal')
+  terminal
+  startinsert
+  " Close border window when terminal window close
+  autocmd TermClose * ++once :q | call nvim_win_close(s:float_term_border_win, v:true)
+endfunction
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -104,12 +173,14 @@ set smartindent
 
 autocmd FileType javascript setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType javascript.jsx setlocal sw=2 ts=2 sts=0 expandtab
+autocmd FileType typescript.tsx setlocal sw=2 ts=2 sts=0 expandtab
 autocmd FileType json setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType css setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType scss setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType html setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType vue setlocal sw=2 ts=2 sts=2 expandtab
-
+autocmd FileType yaml setlocal sw=2 ts=2 sts=2 expandtab
+autocmd FileType make set noexpandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
@@ -130,14 +201,19 @@ let g:go_highlight_variable_assignments = 1
 
 let g:go_code_completion_enabled = 0
 let g:go_auto_type_info = 0
-let g:go_fmt_autosave = 1
+let g:go_fmt_autosave = 0
 let g:go_mod_fmt_autosave = 0
-let g:go_doc_keywordprg_enabled = 0
+let g:go_doc_keywordprg_enabled = 1
 let g:go_decls_mode = 'fzf'
 let g:go_fmt_command = "goimports"
 let g:go_def_mapping_enabled = 0
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+let g:go_list_type="quickfix"
+" let g:go_metalinter_command = "golangci-lint"
+" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_enabled = []
+" let g:go_metalinter_autosave = 0
 
 au FileType go nmap <F9> :GoCoverageToggle -short<cr>
 
@@ -145,11 +221,11 @@ au FileType go nmap <F9> :GoCoverageToggle -short<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GO KEYBINDINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" au FileType go nmap <Leader>l <Plug>(go-metalinter)
+au FileType go nmap <Leader>l <Plug>(go-metalinter)
 
 " autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
+" autocmd FileType go nmap <leader>r  <Plug>(go-run)
+" autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 autocmd FileType go nmap <C-\> :GoDecls<CR>
 " autocmd FileType go nmap <Leader>w :GoAlternate<CR>
@@ -200,43 +276,34 @@ let g:NERDDefaultAlign = 'left'
 
 
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" DEOPLETE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Skip the check of neovim module
-"let g:python3_host_skip_check = 1
-
-"let g:deoplete#enable_at_startup = 1
-" let g:deoplete#sources#go#gocode_binary = '$GOPATH/bin/gocode'
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" let g:deoplete#sources#go#use_cache = 1
-" let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
-
-" deoplete tab-complete
-"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap ; :Buffers<CR>
 nmap <Leader>f :Files<CR>
+nmap <Leader>e :Ag<CR>
+nmap <Leader>t :Tags<CR>
+nmap <Leader>r :BTags<CR>
+
+let g:fzf_layout = { 'down': '~20%' }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LIGHTLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
+\ 'colorscheme': 'quantum',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['cocstatus'], ['filename', 'modified'], ['cocgitstatus']],
+\   'left': [['fileicon'], ['mode', 'paste'], ['cocstatus'], ['filename', 'modified'], ['icongitbranch']],
 \   'right': [['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component': {
 \   'charvaluehex': '0x%B',
 \ },
 \ 'component_function': {
-\	'cocstatus': 'coc#status'
+\	'cocstatus': 'coc#status',
+\   'fileicon': 'MyFiletype',
+\   'icongitbranch': 'DrawGitBranchInfo',
 \ },
 \ 'component_expand': {
 \   'cocgitstatus': 'LightLineCocGitStatus'
@@ -252,32 +319,23 @@ function! LightLineCocGitStatus()
   return gstatus . ' ' . bstatus
 endfunction
 
+function! DrawGitBranchInfo()
+  let branch = fugitive#head()
+  return len(branch) > 0 ? " " . branch : ""
+endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ALE (DISABLED)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
-let g:ale_linters = {'go': ['gometalinter']}
-let g:ale_go_gometalinter_options = '--fast'
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['vue'] = ['prettier']
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
-"let g:ale_lint_delay = '5s'
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_enter = 0
-
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : '') : ''
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Display hidden files
 let NERDTreeShowHidden=1
+let NERDTreeWinSize=30
+let NERDTreeHijackNetrw=0
+let NERDTreeMinimalUI=1
 
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -285,23 +343,44 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom icon for coc.nvim statusline
+let g:coc_status_error_sign=" "
+let g:coc_status_warning_sign=" "
 
-"use <tab> for trigger completion and navigate next complete item
+set statusline^=%{coc#status()}%{StatusDiagnostic()}
+
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction
+
+" use <tab> for trigger completion and navigate next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? "\<C-n>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
-" use <enter> to confirm complete<Plug>_
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"<Paste>
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -334,3 +413,39 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
 " show commit ad current position
 nmap gc <Plug>(coc-git-commit)
+
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json,go,javascript,css setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList grep -I -S -ignorecase -w -u symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VISTA
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Close vista window automatically when it's the last window
+autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsVisible() | execute "normal! :q!\<CR>" | endif

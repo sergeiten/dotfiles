@@ -11,17 +11,25 @@ source $ZSH/oh-my-zsh.sh
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dev="cd  ~/Developer"
 alias godev="cd ~/Developer/go"
-alias v="/usr/local/Cellar/vim/8.1.1300/bin/vim"
+#alias v="/usr/local/Cellar/vim/8.1.1300/bin/vim"
+alias v="/usr/local/Cellar/neovim/0.4.2/bin/nvim"
+alias vim="/usr/local/bin/mvim"
 alias gt="git status"
 alias t="tree"
 alias vc="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dev-tmux="~/dev-tmux"
+alias ctags="`brew --prefix`/bin/ctags"
 
 export GOPATH=${HOME}/Developer/go
-export GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
-export GOROOT=$(brew --prefix)/Cellar/go/${GOVERSION}/libexec
+#export GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
+#export GOVERSION=$(go version | sed 's/.*go\([^ ]*\).*/\1/')
+#export GOROOT=$(brew --prefix)/Cellar/go/${GOVERSION}/libexec
+export GOROOT=/usr/local/opt/go/libexec
 export PATH=${GOPATH}/bin:/usr/local/opt/libiconv/bin:$PATH
-
+export PATH=/usr/local/sbin:$PATH
+export ANDROID_SDK=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
@@ -67,9 +75,8 @@ compdef _ssh color-ssh=ssh
 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
