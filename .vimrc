@@ -54,6 +54,8 @@ endif
 language en_US
 filetype plugin indent on
 
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
+
 " Auto remove trailing spaces
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -348,6 +350,8 @@ map <C-n> :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "

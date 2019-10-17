@@ -1,5 +1,7 @@
 {
-	"suggest.autoTrigger": "always",
+  "prettier.formatterPriority": -1,
+  "json.format.enable": true,
+  "suggest.autoTrigger": "always",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",
@@ -27,43 +29,43 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-	"coc.preferences.formatOnType": false,
-	"diagnostic.virtualText": false,
+  "coc.preferences.formatOnType": false,
+  "diagnostic.virtualText": false,
   "diagnostic.warningSign": "",
   "diagnostic.errorSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.signOffset": 500,
-	"codeLens.enable": true,
+  "codeLens.enable": true,
   "eslint.enable": true,
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "html", "typescript"],
-	"coc.preferences.formatOnSaveFiletypes": [
-		"css",
-		"Markdown",
-		"javascript",
-		"javascriptreact",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
     "typescript",
     "typescriptreact",
     "javascriptreact",
-		"json",
-		"go",
+    "go",
     "html"
-	],
-	"languageserver": {
-		"golang": {
-		  "command": "go-langserver",
-		  "filetypes": ["go"],
-		  "initializationOptions": {
-			"gocodeCompletionEnabled": true,
-			"diagnosticsEnabled": true,
-			"lintTool": "golint"
-		  }
-		},
-		"dockerfile": {
-		  "command": "docker-langserver",
-		  "filetypes": ["dockerfile"],
-		  "args": ["--stdio"]
-		}
-	}
+  ],
+  "prettier.statusItemText": "Cannot be formatted",
+  "languageserver": {
+    "golang": {
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+  }
 }
