@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
     " Language support
 	Plug 'fatih/vim-go'
     Plug 'tomlion/vim-solidity'
+    Plug 'StanAngeloff/php.vim'
+    Plug 'neomake/neomake'
 
     " Navigation
 	Plug 'easymotion/vim-easymotion'
@@ -22,7 +24,6 @@ call plug#begin('~/.vim/plugged')
 
     " Utils
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'majutsushi/tagbar'
     Plug 'kshenoy/vim-signature'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
@@ -31,6 +32,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'HerringtonDarkholme/yats.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'liuchengxu/vista.vim'
+    Plug 'tobyS/vmustache'
+    Plug 'tobyS/pdv'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -38,8 +41,8 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 if has("gui_running")
-    set guifont=Fira\ Code:h12
-    set guifont=SourceCodePro-Light:h13
+    "set guifont=Haskplex\ Nerd:h14
+    set guifont=FuraCode\ Nerd\ Font\ Mono:h14
 else
     set t_Co=256
 
@@ -288,6 +291,20 @@ nmap <Leader>t :Tags<CR>
 nmap <Leader>r :BTags<CR>
 
 let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -453,3 +470,33 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Close vista window automatically when it's the last window
 autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsVisible() | execute "normal! :q!\<CR>" | endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NEOMAKE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" normal mode (after 1s; no delay when writing).
+call neomake#configure#automake('nrwi', 500)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ULTISNIPS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<C-m>"
+" let g:UltiSnipsJumpForwardTrigger="<C-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PDV (PHP Documentor for VIM)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:pdv_template_dir = $HOME ."/.vim/plugged/pdv/templates_snip"
+" nnoremap <buffer> <C-p> :call pdv#DocumentWithSnip()<cr>
+autocmd FileType php inoremap <C-p> <ESC>:call PhpDocSingle()<CR>
+autocmd FileType php nnoremap <C-p> :call PhpDocSingle()<CR>
+autocmd FileType php vnoremap <C-p> :call PhpDocRange()<CR>
