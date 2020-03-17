@@ -1,4 +1,5 @@
 export ZSH=~/.oh-my-zsh
+export LC_ALL=en_US.UTF-8
 
 ZSH_THEME="dracula"
 #ZSH_THEME="robbyrussell"
@@ -12,7 +13,7 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dev="cd  ~/Developer"
 alias godev="cd ~/Developer/go"
 #alias v="/usr/local/Cellar/vim/8.1.1300/bin/vim"
-alias v="/usr/local/Cellar/neovim/0.4.2/bin/nvim"
+alias v="/usr/local/Cellar/neovim/0.4.3/bin/nvim"
 alias vim="/usr/local/bin/mvim"
 alias gt="git status"
 alias t="tree"
@@ -21,11 +22,9 @@ alias dev-tmux="~/dev-tmux"
 alias ctags="`brew --prefix`/bin/ctags"
 
 export GOPATH=${HOME}/Developer/go
-#export GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
-#export GOVERSION=$(go version | sed 's/.*go\([^ ]*\).*/\1/')
-#export GOROOT=$(brew --prefix)/Cellar/go/${GOVERSION}/libexec
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=${GOPATH}/bin:/usr/local/opt/libiconv/bin:$PATH
+# export GOROOT=/usr/local/opt/go/libexec
+# export PATH=${GOPATH}/bin:/usr/local/opt/libiconv/bin:$PATH
+export PATH=${HOME}/Developer/go/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
@@ -98,10 +97,19 @@ _fzf_compgen_dir() {
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 # Move next only if `homebrew` is installed
 if command -v brew >/dev/null 2>&1; then
 	# Load rupa's z if installed
 	[ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
 fi
+
+export GPG_TTY=$(tty)
+export OPENSSL_INCLUDE_DIR="/usr/local/opt/openssl"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+
+# Ruby env
+[[ -d ~/.rbenv  ]] && \
+  export PATH=${HOME}/.rbenv/bin:${PATH} && \
+  eval "$(rbenv init -)"
+
+export PATH="/usr/local/opt/llvm/bin:$PATH"

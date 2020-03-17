@@ -2,8 +2,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 
     " Language support
-	Plug 'fatih/vim-go'
+	"Plug 'fatih/vim-go'
+    "Plug 'govim/govim'
     Plug 'tomlion/vim-solidity'
+    Plug 'StanAngeloff/php.vim'
+    Plug 'jalvesaq/Nvim-R'
 
     " Navigation
 	Plug 'easymotion/vim-easymotion'
@@ -16,19 +19,26 @@ call plug#begin('~/.vim/plugged')
 	Plug 'pangloss/vim-javascript'
 	Plug 'mxw/vim-jsx'
     Plug 'othree/yajs.vim'
+    Plug 'HerringtonDarkholme/yats.vim'
+
+    " Python
+    "Plug 'psf/black'
+
+    " Rust
+    Plug 'rust-lang/rust.vim'
 
 	" Colorschemes
-    Plug 'tyrannicaltoucan/vim-quantum'
+    Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
+    Plug 'crusoexia/vim-monokai'
 
     " Utils
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'majutsushi/tagbar'
     Plug 'kshenoy/vim-signature'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
 	Plug 'itchyny/lightline.vim'
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-    Plug 'HerringtonDarkholme/yats.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'liuchengxu/vista.vim'
 
@@ -38,8 +48,9 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 if has("gui_running")
-    set guifont=Fira\ Code:h12
-    set guifont=SourceCodePro-Light:h13
+    set guifont=Haskplex\ Nerd:h14
+    " set guifont=FuraCode\ Nerd\ Font\ Mono:h14
+    " set guifont=InconsolataGo\ Nerd\ Font:h14
 else
     set t_Co=256
 
@@ -73,7 +84,8 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
-colorscheme quantum
+colorscheme monokai
+" colorscheme onedark
 
 set ignorecase
 set smartcase
@@ -81,9 +93,14 @@ set hidden
 set cmdheight=1
 set updatetime=300
 set signcolumn=yes
+
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
+" set cursorline!
+" set lazyredraw
+" set regexpengine=1
+" set synmaxcol=64
+" set noshowcmd
 set termguicolors
 set nopaste
 set noshowmode
@@ -117,50 +134,7 @@ autocmd FileType qf wincmd J
 let mapleader=","
 
 nnoremap <Leader><Leader>c :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>at :call FloatTerm()<CR>
 nnoremap <Leader>v :Vista coc<CR>
-
-" Floating Term
-let s:float_term_border_win = 0
-let s:float_term_win = 0
-function! FloatTerm()
-  " Configuration
-  let height = float2nr((&lines - 2) * 0.6)
-  let row = float2nr((&lines - height) / 2)
-  let width = float2nr(&columns * 0.6)
-  let col = float2nr((&columns - width) / 2)
-  " Border Window
-  let border_opts = {
-        \ 'relative': 'editor',
-        \ 'row': row - 1,
-        \ 'col': col - 2,
-        \ 'width': width + 4,
-        \ 'height': height + 2,
-        \ 'style': 'minimal'
-        \ }
-  let border_buf = nvim_create_buf(v:false, v:true)
-  let s:float_term_border_win = nvim_open_win(border_buf, v:true, border_opts)
-  " Terminal Window
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': row,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-  let buf = nvim_create_buf(v:false, v:true)
-  let s:float_term_win = nvim_open_win(buf, v:true, opts)
-  " Styling
-  hi FloatTermNormal term=None guibg=#2d3d45
-  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatTermNormal')
-  call setwinvar(s:float_term_win, '&winhl', 'Normal:FloatTermNormal')
-  terminal
-  startinsert
-  " Close border window when terminal window close
-  autocmd TermClose * ++once :q | call nvim_win_close(s:float_term_border_win, v:true)
-endfunction
-
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -187,58 +161,58 @@ autocmd FileType make set noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_function_parameters = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_format_strings = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
 
-let g:go_code_completion_enabled = 0
-let g:go_auto_type_info = 0
-let g:go_fmt_autosave = 0
-let g:go_mod_fmt_autosave = 0
-let g:go_doc_keywordprg_enabled = 1
-let g:go_decls_mode = 'fzf'
-let g:go_fmt_command = "goimports"
-let g:go_def_mapping_enabled = 0
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:go_list_type="quickfix"
-" let g:go_metalinter_command = "golangci-lint"
-" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_metalinter_enabled = []
-" let g:go_metalinter_autosave = 0
+" let g:go_code_completion_enabled = 0
+" let g:go_auto_type_info = 0
+" let g:go_fmt_autosave = 1
+" let g:go_mod_fmt_autosave = 0
+" let g:go_doc_keywordprg_enabled = 0
+" let g:go_decls_mode = 'fzf'
+" let g:go_fmt_command = "goimports"
+" let g:go_def_mapping_enabled = 0
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
+" let g:go_list_type="quickfix"
+" " let g:go_metalinter_command = "golangci-lint"
+" " let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+" let g:go_metalinter_enabled = []
+" " let g:go_metalinter_autosave = 0
 
-au FileType go nmap <F9> :GoCoverageToggle -short<cr>
+" au FileType go nmap <F9> :GoCoverageToggle -short<cr>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GO KEYBINDINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au FileType go nmap <Leader>l <Plug>(go-metalinter)
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" " GO KEYBINDINGS
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" au FileType go nmap <Leader>l <Plug>(go-metalinter)
 
-" autocmd FileType go nmap <leader>b  <Plug>(go-build)
-" autocmd FileType go nmap <leader>r  <Plug>(go-run)
-" autocmd FileType go nmap <leader>t  <Plug>(go-test)
+" " autocmd FileType go nmap <leader>b  <Plug>(go-build)
+" " autocmd FileType go nmap <leader>r  <Plug>(go-run)
+" " autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
-autocmd FileType go nmap <C-\> :GoDecls<CR>
-" autocmd FileType go nmap <Leader>w :GoAlternate<CR>
+" autocmd FileType go nmap <C-\> :GoDecls<CR>
+" " autocmd FileType go nmap <Leader>w :GoAlternate<CR>
 
-autocmd FileType go nmap <Leader>i <Plug>(go-info)
-autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+" autocmd FileType go nmap <Leader>i <Plug>(go-info)
+" autocmd FileType go nmap <Leader>d <Plug>(go-doc)
 
-" Jump between errors in quickfix list
-map <C-]> :cnext<CR>
-map <C-[> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
+" " Jump between errors in quickfix list
+" map <C-]> :cnext<CR>
+" map <C-[> :cprevious<CR>
+" nnoremap <leader>a :cclose<CR>
 
 " autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 " autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -288,13 +262,27 @@ nmap <Leader>t :Tags<CR>
 nmap <Leader>r :BTags<CR>
 
 let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LIGHTLINE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
-\ 'colorscheme': 'quantum',
+\ 'colorscheme': 'molokai',
 \ 'active': {
 \   'left': [['fileicon'], ['mode', 'paste'], ['cocstatus'], ['filename', 'modified'], ['icongitbranch']],
 \   'right': [['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
@@ -345,6 +333,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
+let g:NERDTreeIgnore = ['^node_modules$']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -419,7 +408,7 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gc <Plug>(coc-git-commit)
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 augroup mygroup
   autocmd!
@@ -452,4 +441,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " VISTA
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Close vista window automatically when it's the last window
-autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsVisible() | execute "normal! :q!\<CR>" | endif
+" autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsVisible() | execute "normal! :q!\<CR>" | endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BLACK
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autocmd BufWritePre *.py execute ':Black'
