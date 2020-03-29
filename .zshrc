@@ -26,8 +26,9 @@ alias goland="/Applications/GoLand.app/Contents/MacOS/goland"
 alias pycharm="/Applications/PyCharm.app/Contents/MacOS/pycharm"
 
 export GOPATH=${HOME}/Developer/go
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=${GOPATH}/bin:/usr/local/opt/libiconv/bin:$PATH
+# export GOROOT=/usr/local/opt/go/libexec
+# export PATH=${GOPATH}/bin:/usr/local/opt/libiconv/bin:$PATH
+export PATH=${HOME}/Developer/go/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
