@@ -20,6 +20,7 @@ alias t="tree"
 alias vc="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dev-tmux="~/dev-tmux"
 alias ctags="`brew --prefix`/bin/ctags"
+alias mux='pgrep -vx tmux > /dev/null/ && tmux new -d -s delete-me && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t delete-me && tmux attach || tmux attach'
 
 export GOPATH=${HOME}/Developer/go
 # export GOROOT=/usr/local/opt/go/libexec
@@ -29,6 +30,7 @@ export PATH=/usr/local/sbin:$PATH
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {

@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
     " Language support
 	"Plug 'fatih/vim-go'
     "Plug 'govim/govim'
-    Plug 'tomlion/vim-solidity'
     Plug 'StanAngeloff/php.vim'
     Plug 'jalvesaq/Nvim-R'
 
@@ -24,9 +23,6 @@ call plug#begin('~/.vim/plugged')
     " Python
     "Plug 'psf/black'
 
-    " Rust
-    Plug 'rust-lang/rust.vim'
-
 	" Colorschemes
     Plug 'morhetz/gruvbox'
     Plug 'joshdick/onedark.vim'
@@ -40,7 +36,6 @@ call plug#begin('~/.vim/plugged')
 	Plug 'itchyny/lightline.vim'
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
     Plug 'ludovicchabant/vim-gutentags'
-    Plug 'liuchengxu/vista.vim'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -134,7 +129,6 @@ autocmd FileType qf wincmd J
 let mapleader=","
 
 nnoremap <Leader><Leader>c :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>v :Vista coc<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
