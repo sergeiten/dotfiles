@@ -20,7 +20,6 @@ alias t="tree"
 alias vc="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
 alias dev-tmux="~/dev-tmux"
 alias ctags="`brew --prefix`/bin/ctags"
-alias mux='pgrep -vx tmux > /dev/null/ && tmux new -d -s delete-me && tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh && tmux kill-session -t delete-me && tmux attach || tmux attach'
 
 export GOPATH=${HOME}/Developer/go
 # export GOROOT=/usr/local/opt/go/libexec
