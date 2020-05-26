@@ -2,7 +2,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 
     " Language support
-	"Plug 'fatih/vim-go'
+	Plug 'fatih/vim-go'
     "Plug 'govim/govim'
     Plug 'StanAngeloff/php.vim'
     Plug 'jalvesaq/Nvim-R'
@@ -15,10 +15,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " JavaScript / JSX
-	Plug 'pangloss/vim-javascript'
-	Plug 'mxw/vim-jsx'
-    Plug 'othree/yajs.vim'
-    Plug 'HerringtonDarkholme/yats.vim'
+    " Plug 'pangloss/vim-javascript'
+    " Plug 'othree/yajs.vim'
+    " Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'yuezk/vim-js'
+    Plug 'maxmellon/vim-jsx-pretty'
 
     " Python
     "Plug 'psf/black'
@@ -79,8 +80,9 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
+"colorscheme gruvbox
 colorscheme monokai
-" colorscheme onedark
+"colorscheme onedark
 
 set ignorecase
 set smartcase
@@ -114,6 +116,9 @@ set encoding=utf-8
 set autoread
 " remove scrollbars
 set guioptions=
+set diffopt+=vertical
+set title
+set titlestring=%{hostname()}\ \ %F\ \ %{strftime('%Y-%m-%d\ %H:%M',getftime(expand('%')))}
 
 " Copy to clipboard
 set clipboard=unnamed
@@ -155,23 +160,23 @@ autocmd FileType make set noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_function_parameters = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_format_strings = 1
-" let g:go_highlight_variable_declarations = 1
-" let g:go_highlight_variable_assignments = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
 
-" let g:go_code_completion_enabled = 0
-" let g:go_auto_type_info = 0
-" let g:go_fmt_autosave = 1
+let g:go_code_completion_enabled = 0
+let g:go_auto_type_info = 0
+let g:go_fmt_autosave = 0
 " let g:go_mod_fmt_autosave = 0
 " let g:go_doc_keywordprg_enabled = 0
 " let g:go_decls_mode = 'fzf'
@@ -278,11 +283,12 @@ let g:fzf_colors = {
 let g:lightline = {
 \ 'colorscheme': 'molokai',
 \ 'active': {
-\   'left': [['fileicon'], ['mode', 'paste'], ['cocstatus'], ['filename', 'modified'], ['icongitbranch']],
-\   'right': [['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
+\   'left': [['mode', 'paste'], ['icongitbranch'], ['cocstatus'], ['filepath', 'modified']],
+\   'right': [['lineinfo'], ['fileicon'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component': {
 \   'charvaluehex': '0x%B',
+\   'filepath': '%F',
 \ },
 \ 'component_function': {
 \	'cocstatus': 'coc#status',
@@ -328,6 +334,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 
 let g:NERDTreeIgnore = ['^node_modules$']
+
+" Disable lightline for NERDTree buffer
+augroup filetype_nerdtree
+    au!
+    au FileType nerdtree call s:disable_lightline_on_nerdtree()
+    au WinEnter,BufWinEnter,TabEnter * call s:disable_lightline_on_nerdtree()
+augroup END
+
+fu s:disable_lightline_on_nerdtree() abort
+    let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
+    call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
+endfu
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -402,7 +420,7 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gc <Plug>(coc-git-commit)
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 augroup mygroup
   autocmd!
@@ -442,3 +460,21 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " BLACK
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autocmd BufWritePre *.py execute ':Black'
+"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ludovicchabant/vim-gutentags
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:gutentags_trace = 1
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*"]
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" tpope/vim-fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gj :diffget //3<CR>
+nmap <leader>gs :G<CR>
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gp :Gpush<CR>
