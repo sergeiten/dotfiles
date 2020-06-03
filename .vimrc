@@ -37,9 +37,12 @@ call plug#begin('~/.vim/plugged')
 	Plug 'itchyny/lightline.vim'
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
     Plug 'ludovicchabant/vim-gutentags'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'sjl/vitality.vim'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
+    Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -88,7 +91,7 @@ set ignorecase
 set smartcase
 set hidden
 set cmdheight=1
-set updatetime=300
+set updatetime=100
 set signcolumn=yes
 
 " don't give |ins-completion-menu| messages.
@@ -284,7 +287,7 @@ let g:lightline = {
 \ 'colorscheme': 'molokai',
 \ 'active': {
 \   'left': [['mode', 'paste'], ['icongitbranch'], ['cocstatus'], ['filepath', 'modified']],
-\   'right': [['lineinfo'], ['fileicon'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
+\   'right': [['fileicon'], ['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component': {
 \   'charvaluehex': '0x%B',
@@ -467,7 +470,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:gutentags_trace = 1
 set statusline+=%{gutentags#statusline()}
-let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*"]
+let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*", "Pods"]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -478,3 +481,10 @@ nmap <leader>gj :diffget //3<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Gpush<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" sjl/vitality.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" auto save all files when focus is lost or when switching buffers
+autocmd FocusLost,BufLeave * :wa
