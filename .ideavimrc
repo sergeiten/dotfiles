@@ -1,0 +1,31 @@
+set visualbell
+set noerrorbells
+
+let mapleader = ","
+
+" key bindings for quickly moving between windows
+" h left, l right, k up, j down
+nmap <c-h> <c-w>h
+nmap <c-l> <c-w>l
+nmap <c-k> <c-w>k
+nmap <c-j> <c-w>j
+
+" split window
+nmap <leader>- :action SplitHorizontally<cr>
+nmap <leader>' :action SplitVertically<cr>
+
+nmap <c-\> :action FileStructurePopup<cr>
+
+nmap <c-o> :action Back<cr>
+nmap <c-i> :action Forward<cr>
+
+nmap <leader>f :action GotoFile<cr>
+nmap <leader>r :action GotoSymbol<cr>
+
+vmap <leader>cc :action CommentByLineComment<cr>
+nmap <leader>cc :action CommentByLineComment<cr>
+nmap <c-]> :action GotoNextError<cr>
+nmap <c-[> :action GotoPreviousError<cr>
+
+nmap <c-n> :action Project<cr>
+nmap <;> :action RecentFiles<cr>

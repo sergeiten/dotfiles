@@ -1,0 +1,19 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.zsh: .zsh
+    ~/.zshenv: .zshenv
+    ~/.tmux.conf: .tmux.conf
+    ~/.vimrc: .vimrc
+    ~/.ideavimrc: .ideavimrc
+    ~/.config/kitty: .config/kitty
+
+- create:
+  - ~/.zsh/cache
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
