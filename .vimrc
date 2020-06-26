@@ -24,7 +24,10 @@ call plug#begin('~/.vim/plugged')
     " Python
     "Plug 'psf/black'
 
-	" Colorschemes
+    " PHP
+    Plug 'arnaud-lb/vim-php-namespace'
+
+    " Colorschemes
     Plug 'morhetz/gruvbox'
     Plug 'joshdick/onedark.vim'
     Plug 'crusoexia/vim-monokai'
@@ -264,6 +267,7 @@ nmap <Leader>e :Ag<CR>
 nmap <Leader>t :Tags<CR>
 nmap <Leader>r :BTags<CR>
 
+let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '~20%' }
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
@@ -489,3 +493,14 @@ nmap <leader>gp :Gpush<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto save all files when focus is lost or when switching buffers
 autocmd FocusLost,BufLeave * :wa
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" arnaud-lb/vim-php-namespace
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>

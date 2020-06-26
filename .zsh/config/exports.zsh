@@ -23,17 +23,15 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # fzf
 export FZF_DEFAULT_COLORS='--color=dark,fg:-1,bg:-1,hl:4,fg+:7,bg+:8,gutter:-1,hl+:4,info:8,border:8,prompt:4,pointer:3,marker:3,spinner:8,header:6'
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
-	--exact \
 	--no-multi \
 	--no-mouse \
 	--height='40%' \
 	--layout='reverse' \
 	--inline-info \
 	--no-bold"
-# export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Setting fd as the default source for fzf
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 
 export GOPATH=${HOME}/Developer/go
