@@ -43,6 +43,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'sjl/vitality.vim'
     Plug 'gabrielelana/vim-markdown'
+    Plug 'mhinz/vim-startify'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -268,7 +269,7 @@ nmap <Leader>t :Tags<CR>
 nmap <Leader>r :BTags<CR>
 
 let g:fzf_buffers_jump = 1
-let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
@@ -334,6 +335,8 @@ let NERDTreeShowHidden=1
 let NERDTreeWinSize=30
 let NERDTreeHijackNetrw=0
 let NERDTreeMinimalUI=1
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeDirArrows=1
 
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -342,6 +345,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 
 let g:NERDTreeIgnore = ['^node_modules$']
+let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Disable lightline for NERDTree buffer
 augroup filetype_nerdtree
@@ -504,3 +508,37 @@ function! IPhpInsertUse()
 endfunction
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" mhinz/vim-startify
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+function! s:gitModified()
+    let files = systemlist('git ls-files -m 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+" same as above, but show untracked files, honouring .gitignore
+function! s:gitUntracked()
+    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+autocmd VimEnter *
+      \   if !argc()
+      \ |   Startify
+      \ |   wincmd w
+      \ | endif
+
+let g:startify_lists = [
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+        \ { 'type': 'commands',  'header': ['   Commands']       },
+        \ ]
