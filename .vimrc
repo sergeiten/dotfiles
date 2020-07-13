@@ -80,6 +80,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd BufNewFile,BufRead *.eslintrc set syntax=json
 autocmd BufNewFile,BufRead *.prettierrc set syntax=json
 autocmd BufNewFile,BufRead *.vue set syntax=javascript
+autocmd BufNewFile,BufRead *.tsx set syntax=javascript
 
 syntax enable
 syntax on
@@ -139,10 +140,15 @@ nnoremap <leader>yy "+yy
 autocmd FileType qf wincmd J
 
 " Set leader key
-let mapleader=","
+let g:mapleader=","
 
 nnoremap <Leader><Leader>c :so ~/.config/nvim/init.vim<CR>
+nnoremap <Leader><Leader>v :vsplit $MYVIMRC<CR>
 
+" Show file full path
+nnoremap <leader>, 2<C-G>
+
+inoremap jk <ESC>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SPACES & TABS
@@ -292,12 +298,11 @@ let g:fzf_colors = {
 let g:lightline = {
 \ 'colorscheme': 'molokai',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['icongitbranch'], ['cocstatus'], ['filepath', 'modified']],
+\   'left': [['mode', 'paste'], ['icongitbranch'], ['cocstatus'], ['filename', 'modified']],
 \   'right': [['fileicon'], ['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component': {
 \   'charvaluehex': '0x%B',
-\   'filepath': '%F',
 \ },
 \ 'component_function': {
 \	'cocstatus': 'coc#status',
@@ -344,7 +349,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
-let g:NERDTreeIgnore = ['^node_modules$']
+" let g:NERDTreeIgnore = ['^node_modules$']
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Disable lightline for NERDTree buffer
@@ -422,14 +427,6 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
-" show commit ad current position
-nmap gc <Plug>(coc-git-commit)
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
@@ -542,3 +539,28 @@ let g:startify_lists = [
         \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
         \ { 'type': 'commands',  'header': ['   Commands']       },
         \ ]
+
+
+
+" Terminal Function
+let g:term_buf = 0
+let g:term_win = 0
+function! TermToggle(height)
+    if win_gotoid(g:term_win)
+        hide
+    else
+        botright new
+        exec "resize " . a:height
+        try
+            exec "buffer " . g:term_buf
+        catch
+            call termopen($SHELL, {"detach": 0})
+            let g:term_buf = bufnr("")
+            set nonumber
+            set norelativenumber
+            set signcolumn=no
+        endtry
+        startinsert!
+        let g:term_win = win_getid()
+    endif
+endfunction
