@@ -273,6 +273,15 @@ nmap <Leader>f :Files<CR>
 nmap <Leader>e :Ag<CR>
 nmap <Leader>t :Tags<CR>
 nmap <Leader>r :BTags<CR>
+nmap <Leader>b :BLines<CR>
+
+let $FZF_DEFAULT_OPTS .= ' --inline-info'
+
+command! -nargs=? -complete=dir Files
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
+
 
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '~40%' }

@@ -31,7 +31,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
 	--no-bold"
 
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --hidden --follow --type f --exclude .git'
 
 
 export GOPATH=${HOME}/Developer/go
