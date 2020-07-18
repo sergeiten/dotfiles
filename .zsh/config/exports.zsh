@@ -40,7 +40,7 @@ export PATH=/usr/local/sbin:$PATH
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
 
 
 # ls

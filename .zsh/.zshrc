@@ -6,7 +6,7 @@ foreach piece (
     aliases.zsh
     widgets.zsh
     mappings.zsh
-	plugins.zsh
+    plugins.zsh
 ) {
 	source $ZDOTDIR/config/$piece
 }
