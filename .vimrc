@@ -3,9 +3,9 @@ call plug#begin('~/.vim/plugged')
 
     " Language support
 	Plug 'fatih/vim-go'
-    "Plug 'govim/govim'
     Plug 'StanAngeloff/php.vim'
     Plug 'jalvesaq/Nvim-R'
+    Plug 'ekalinin/Dockerfile.vim'
 
     " Navigation
 	Plug 'easymotion/vim-easymotion'
@@ -14,23 +14,15 @@ call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 
-    " JavaScript / JSX
-    " Plug 'pangloss/vim-javascript'
-    " Plug 'othree/yajs.vim'
-    " Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'yuezk/vim-js'
+    " JavaScript / TypeScript / JSX
+    Plug 'pangloss/vim-javascript'
+    Plug 'HerringtonDarkholme/yats.vim'
     Plug 'maxmellon/vim-jsx-pretty'
-
-    " Python
-    "Plug 'psf/black'
-
-    " PHP
-    Plug 'arnaud-lb/vim-php-namespace'
+    Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
     " Colorschemes
+    Plug 'ayu-theme/ayu-vim'
     Plug 'morhetz/gruvbox'
-    Plug 'joshdick/onedark.vim'
-    Plug 'crusoexia/vim-monokai'
 
     " Utils
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -38,12 +30,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
 	Plug 'itchyny/lightline.vim'
-    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'jiangmiao/auto-pairs'
     Plug 'sjl/vitality.vim'
     Plug 'gabrielelana/vim-markdown'
     Plug 'mhinz/vim-startify'
+    Plug 'Yggdroot/indentLine'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -53,8 +46,6 @@ call plug#end()
 
 if has("gui_running")
     set guifont=Haskplex\ Nerd:h14
-    " set guifont=FuraCode\ Nerd\ Font\ Mono:h14
-    " set guifont=InconsolataGo\ Nerd\ Font:h14
 else
     set t_Co=256
 
@@ -80,7 +71,13 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd BufNewFile,BufRead *.eslintrc set syntax=json
 autocmd BufNewFile,BufRead *.prettierrc set syntax=json
 autocmd BufNewFile,BufRead *.vue set syntax=javascript
-autocmd BufNewFile,BufRead *.tsx set syntax=javascript
+autocmd BufNewFile,BufRead *.tx set syntax=typescript
+autocmd BufNewFile,BufRead *.tsx set syntax=typescript.tsx
+" autocmd BufNewFile,BufRead *.tsx set syntax=javascript
+
+" forces vim to rescan the entire buffer when highlighting
+" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 syntax enable
 syntax on
@@ -89,9 +86,12 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
-"colorscheme gruvbox
-colorscheme monokai
-"colorscheme onedark
+" let ayucolor="mirage"
+" colorscheme monokai
+colorscheme gruvbox
+
+" let g:seoul256_background = 233
+" colorscheme seoul256
 
 set ignorecase
 set smartcase
@@ -102,11 +102,6 @@ set signcolumn=yes
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-" set cursorline!
-" set lazyredraw
-" set regexpengine=1
-" set synmaxcol=64
-" set noshowcmd
 set termguicolors
 set nopaste
 set noshowmode
@@ -117,6 +112,7 @@ set ignorecase
 set smartcase
 set relativenumber
 set splitbelow
+set splitright
 set completeopt-=preview
 set laststatus=2
 set numberwidth=1
@@ -136,8 +132,7 @@ nnoremap <leader>Y "+yg_
 nnoremap <leader>y "+y
 nnoremap <leader>yy "+yy
 
-" Move quickfix window to bottom of window layout
-autocmd FileType qf wincmd J
+au FocusGained * :checktime
 
 " Set leader key
 let g:mapleader=","
@@ -162,7 +157,9 @@ set smartindent
 
 autocmd FileType javascript setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType javascript.jsx setlocal sw=2 ts=2 sts=0 expandtab
+autocmd FileType typescript setlocal sw=2 ts=2 sts=0 expandtab
 autocmd FileType typescript.tsx setlocal sw=2 ts=2 sts=0 expandtab
+autocmd FileType typescriptreact setlocal sw=2 ts=2 sts=0 expandtab
 autocmd FileType json setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType css setlocal sw=2 ts=2 sts=2 expandtab
 autocmd FileType scss setlocal sw=2 ts=2 sts=2 expandtab
@@ -268,6 +265,8 @@ let g:NERDDefaultAlign = 'left'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=/usr/local/opt/fzf
+
 nmap ; :Buffers<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>e :Ag<CR>
@@ -279,7 +278,7 @@ let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
 command! -nargs=? -complete=dir Files
   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
-  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \   'source': 'fd --type f --hidden --follow --exclude .git --exclude .idea --exclude bin --no-ignore . '.expand(<q-args>)
   \ })))
 
 
@@ -422,9 +421,17 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+nmap <silent> gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
+
 " Use `[v` and `]v` to navigate diagnostics
-nmap <silent> [v <Plug>(coc-diagnostic-prev)
-nmap <silent> ]v <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -468,19 +475,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VISTA
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Close vista window automatically when it's the last window
-" autocmd BufEnter * if winnr("$") == 1 && vista#sidebar#IsVisible() | execute "normal! :q!\<CR>" | endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BLACK
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autocmd BufWritePre *.py execute ':Black'
-"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ludovicchabant/vim-gutentags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:gutentags_trace = 1
@@ -503,17 +497,6 @@ nmap <leader>gp :Gpush<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " auto save all files when focus is lost or when switching buffers
 autocmd FocusLost,BufLeave * :wa
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" arnaud-lb/vim-php-namespace
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
-autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -540,7 +523,6 @@ autocmd VimEnter *
       \ | endif
 
 let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   MRU']            },
         \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
         \ { 'type': 'sessions',  'header': ['   Sessions']       },
         \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
@@ -550,26 +532,21 @@ let g:startify_lists = [
         \ ]
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Yggdroot/indentLine
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:indentLine_color_term = 239
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
-" Terminal Function
-let g:term_buf = 0
-let g:term_win = 0
-function! TermToggle(height)
-    if win_gotoid(g:term_win)
-        hide
-    else
-        botright new
-        exec "resize " . a:height
-        try
-            exec "buffer " . g:term_buf
-        catch
-            call termopen($SHELL, {"detach": 0})
-            let g:term_buf = bufnr("")
-            set nonumber
-            set norelativenumber
-            set signcolumn=no
-        endtry
-        startinsert!
-        let g:term_win = win_getid()
-    endif
-endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://vim.fandom.com/wiki/Moving_lines_up_or_down
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+
+inoremap ∆ <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
+
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
