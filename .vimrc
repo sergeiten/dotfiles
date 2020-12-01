@@ -1,28 +1,27 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 
-    " Language support
-	Plug 'fatih/vim-go'
-    Plug 'StanAngeloff/php.vim'
+    " Language support Plug 'fatih/vim-go'
     Plug 'jalvesaq/Nvim-R'
     Plug 'ekalinin/Dockerfile.vim'
 
     " Navigation
 	Plug 'easymotion/vim-easymotion'
-	Plug 'scrooloose/nerdcommenter'
 	Plug 'christoomey/vim-tmux-navigator'
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tpope/vim-commentary'
 
     " JavaScript / TypeScript / JSX
     Plug 'pangloss/vim-javascript'
     Plug 'HerringtonDarkholme/yats.vim'
     Plug 'maxmellon/vim-jsx-pretty'
-    Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+    " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
     " Colorschemes
     Plug 'ayu-theme/ayu-vim'
     Plug 'morhetz/gruvbox'
+    Plug 'crusoexia/vim-monokai'
 
     " Utils
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -35,8 +34,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'sjl/vitality.vim'
     Plug 'gabrielelana/vim-markdown'
-    Plug 'mhinz/vim-startify'
-    Plug 'Yggdroot/indentLine'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
+    Plug 'mbbill/undotree'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -45,7 +44,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 if has("gui_running")
-    set guifont=Haskplex\ Nerd:h14
+    set guifont=Haskplex\ Nerd\ Regular:h14
 else
     set t_Co=256
 
@@ -65,7 +64,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 " Auto remove trailing spaces
 autocmd BufWritePre * %s/\s\+$//e
 
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " FORCE SYNTAX
 autocmd BufNewFile,BufRead *.eslintrc set syntax=json
@@ -75,10 +74,6 @@ autocmd BufNewFile,BufRead *.tx set syntax=typescript
 autocmd BufNewFile,BufRead *.tsx set syntax=typescript.tsx
 " autocmd BufNewFile,BufRead *.tsx set syntax=javascript
 
-" forces vim to rescan the entire buffer when highlighting
-" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
 syntax enable
 syntax on
 
@@ -86,18 +81,14 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
-" let ayucolor="mirage"
-" colorscheme monokai
-colorscheme gruvbox
-
-" let g:seoul256_background = 233
-" colorscheme seoul256
+colorscheme monokai
+" colorscheme gruvbox
 
 set ignorecase
 set smartcase
 set hidden
-set cmdheight=1
-set updatetime=100
+set cmdheight=2
+set updatetime=50
 set signcolumn=yes
 
 " don't give |ins-completion-menu| messages.
@@ -113,12 +104,16 @@ set smartcase
 set relativenumber
 set splitbelow
 set splitright
-set completeopt-=preview
+" set completeopt-=preview
+set completeopt=menuone,noinsert,noselect
 set laststatus=2
 set numberwidth=1
 set fileencoding=utf-8
 set encoding=utf-8
 set autoread
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
 " remove scrollbars
 set guioptions=
 set diffopt+=vertical
@@ -139,9 +134,6 @@ let g:mapleader=","
 
 nnoremap <Leader><Leader>c :so ~/.config/nvim/init.vim<CR>
 nnoremap <Leader><Leader>v :vsplit $MYVIMRC<CR>
-
-" Show file full path
-nnoremap <leader>, 2<C-G>
 
 inoremap jk <ESC>
 
@@ -171,23 +163,23 @@ autocmd FileType make set noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_function_parameters = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_format_strings = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
 
-let g:go_code_completion_enabled = 0
-let g:go_auto_type_info = 0
-let g:go_fmt_autosave = 0
+" let g:go_code_completion_enabled = 0
+" let g:go_auto_type_info = 0
+" let g:go_fmt_autosave = 0
 " let g:go_mod_fmt_autosave = 0
 " let g:go_doc_keywordprg_enabled = 0
 " let g:go_decls_mode = 'fzf'
@@ -253,17 +245,8 @@ map <Leader>k <Plug>(easymotion-k)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDCOMMENTER
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDCompactSexyComs = 1
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
+" junegunn/fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=/usr/local/opt/fzf
 
@@ -306,30 +289,26 @@ let g:fzf_colors = {
 let g:lightline = {
 \ 'colorscheme': 'molokai',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['icongitbranch'], ['cocstatus'], ['filename', 'modified']],
+\   'left': [['mode', 'paste'], ['icongitbranch'], ['filename', 'modified']],
 \   'right': [['fileicon'], ['lineinfo'], ['charvaluehex', 'fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component': {
 \   'charvaluehex': '0x%B',
 \ },
 \ 'component_function': {
-\	'cocstatus': 'coc#status',
 \   'fileicon': 'MyFiletype',
 \   'icongitbranch': 'DrawGitBranchInfo',
 \ },
-\ 'component_expand': {
-\   'cocgitstatus': 'LightLineCocGitStatus'
-\ }
 \}
 
-function! LightLineCocGitStatus()
-  let gstatus = get(g:, 'coc_git_status')
-  let bstatus = get(b:, 'coc_git_status', {})
-  if empty(gstatus)
-    return ''
-  endif
-  return gstatus . ' ' . bstatus
-endfunction
+" function! LightLineCocGitStatus()
+"   let gstatus = get(g:, 'coc_git_status')
+"   let bstatus = get(b:, 'coc_git_status', {})
+"   if empty(gstatus)
+"     return ''
+"   endif
+"   return gstatus . ' ' . bstatus
+" endfunction
 
 function! DrawGitBranchInfo()
   let branch = fugitive#head()
@@ -342,6 +321,7 @@ endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
+" scrooloose/nerdtree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Display hidden files
 let NERDTreeShowHidden=1
@@ -356,6 +336,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
+
+nmap <leader>, :NERDTreeFind<CR>
 
 " let g:NERDTreeIgnore = ['^node_modules$']
 let g:nerdtree_tabs_open_on_gui_startup=0
@@ -423,7 +405,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 nmap <silent> gdv :call CocAction('jumpDefinition', 'vsplit')<CR>
 
-" Use `[v` and `]v` to navigate diagnostics
+" Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -445,7 +427,6 @@ function! s:show_documentation()
 endfunction
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 augroup mygroup
   autocmd!
@@ -486,7 +467,7 @@ let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".g
 " tpope/vim-fugitive
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>gf :diffget //2<CR>
-nmap <leader>gj :diffget //3<CR>
+nmap <leader>gh :diffget //3<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Gpush<CR>
@@ -500,53 +481,11 @@ autocmd FocusLost,BufLeave * :wa
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" mhinz/vim-startify
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" returns all modified files of the current git repo
-" `2>/dev/null` makes the command fail quietly, so that when we are not
-" in a git repo, the list will be empty
-function! s:gitModified()
-    let files = systemlist('git ls-files -m 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-endfunction
-
-" same as above, but show untracked files, honouring .gitignore
-function! s:gitUntracked()
-    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-endfunction
-
-autocmd VimEnter *
-      \   if !argc()
-      \ |   Startify
-      \ |   wincmd w
-      \ | endif
-
-let g:startify_lists = [
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-        \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Yggdroot/indentLine
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indentLine_color_term = 239
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://vim.fandom.com/wiki/Moving_lines_up_or_down
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap ∆ :m .+1<CR>==
-nnoremap ˚ :m .-2<CR>==
-
-inoremap ∆ <Esc>:m .+1<CR>==gi
-inoremap ˚ <Esc>:m .-2<CR>==gi
-
-vnoremap ∆ :m '>+1<CR>gv=gv
-vnoremap ˚ :m '<-2<CR>gv=gv
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv

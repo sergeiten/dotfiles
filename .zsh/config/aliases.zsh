@@ -1,7 +1,7 @@
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias dev="cd  ~/Developer"
 alias godev="cd ~/Developer/go"
-alias v="/usr/local/Cellar/neovim/0.4.3/bin/nvim"
+alias v="/usr/local/bin/nvim"
 alias vim="/usr/local/bin/mvim"
 alias gt="git status"
 alias t="tree"

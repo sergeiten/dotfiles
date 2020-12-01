@@ -14,16 +14,17 @@ nmap <c-j> <c-w>j
 nmap <leader>- :action SplitHorizontally<cr>
 nmap <leader>' :action SplitVertically<cr>
 
-nmap <c-\> :action FileStructurePopup<cr>
+nmap <c-\> :action ActivateTerminalToolWindow<cr>
+imap <c-\> :action ActivateTerminalToolWindow<cr>
 
 nmap <c-o> :action Back<cr>
 nmap <c-i> :action Forward<cr>
 
 nmap <leader>f :action GotoFile<cr>
-nmap <leader>r :action GotoSymbol<cr>
+nmap <leader>r :action FileStructurePopup<cr>
 
-vmap <leader>cc :action CommentByLineComment<cr>
-nmap <leader>cc :action CommentByLineComment<cr>
+vmap gcc :action CommentByLineComment<cr>
+nmap gcc :action CommentByLineComment<cr>
 nmap <c-]> :action GotoNextError<cr>
 nmap <c-[> :action GotoPreviousError<cr>
 

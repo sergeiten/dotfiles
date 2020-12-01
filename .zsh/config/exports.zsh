@@ -1,5 +1,6 @@
 # Basics
-export TERM='xterm-256color'
+# export TERM='xterm-256color'
+# export TERM='screen-256color'
 export EDITOR='nvim'
 export PAGER='less'
 export KEYTIMEOUT=1
@@ -13,6 +14,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 export LANGUAGE='en_US.UTF-8'
+export LC_CTYPE='en_US.UTF-8'
 
 # GnuPG
 export GPG_TTY=$(tty)
