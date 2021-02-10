@@ -1,6 +1,6 @@
 # Basics
 # export TERM='xterm-256color'
-# export TERM='screen-256color'
+export TERM='screen-256color'
 export EDITOR='nvim'
 export PAGER='less'
 export KEYTIMEOUT=1
@@ -35,10 +35,14 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type f --exclude .git'
 
+export PYTHON2=/Users/sergeiten/Library/Python/2.7/bin
+export RUBY_GEM=/Users/sergeiten/.gem/ruby/2.6.0/bin
 
 export GOPATH=${HOME}/Developer/go
 export PATH=${HOME}/Developer/go/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
+export PATH=$PATH:$PYTHON2
+export PATH=$PATH:$RUBY_GEM
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH

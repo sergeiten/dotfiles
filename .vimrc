@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
 	Plug 'itchyny/lightline.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'jiangmiao/auto-pairs'
@@ -248,7 +249,7 @@ map <Leader>k <Plug>(easymotion-k)
 " FZF
 " junegunn/fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set rtp+=/usr/local/opt/fzf
+set rtp+=/usr/local/bin/fzf
 
 nmap ; :Buffers<CR>
 nmap <Leader>f :Files<CR>
