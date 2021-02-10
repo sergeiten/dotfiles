@@ -1,7 +1,8 @@
 call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-sensible'
 
-    " Language support Plug 'fatih/vim-go'
+    " Language support
+    Plug 'fatih/vim-go'
     Plug 'jalvesaq/Nvim-R'
     Plug 'ekalinin/Dockerfile.vim'
 
@@ -33,9 +34,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'jiangmiao/auto-pairs'
     Plug 'sjl/vitality.vim'
-    Plug 'gabrielelana/vim-markdown'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
     Plug 'mbbill/undotree'
+
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -163,19 +166,19 @@ autocmd FileType make set noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_function_parameters = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_format_strings = 1
-" let g:go_highlight_variable_declarations = 1
-" let g:go_highlight_variable_assignments = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
 
 " let g:go_code_completion_enabled = 0
 " let g:go_auto_type_info = 0
@@ -184,14 +187,14 @@ autocmd FileType make set noexpandtab
 " let g:go_doc_keywordprg_enabled = 0
 " let g:go_decls_mode = 'fzf'
 " let g:go_fmt_command = "goimports"
-" let g:go_def_mapping_enabled = 0
+let g:go_def_mapping_enabled = 0
 " let g:go_def_mode='gopls'
 " let g:go_info_mode='gopls'
 " let g:go_list_type="quickfix"
-" " let g:go_metalinter_command = "golangci-lint"
-" " let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+" let g:go_metalinter_command = "golangci-lint"
+" let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " let g:go_metalinter_enabled = []
-" " let g:go_metalinter_autosave = 0
+" let g:go_metalinter_autosave = 0
 
 " au FileType go nmap <F9> :GoCoverageToggle -short<cr>
 
@@ -243,6 +246,16 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" telescope.nvim
+" nvim-lua/popup.nvim
+" nvim-lua/plenary.nvim'
+" nvim-telescope/telescope.nvim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>e <cmd>Telescope live_grep<cr>
+nnoremap ; <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
@@ -250,12 +263,12 @@ map <Leader>k <Plug>(easymotion-k)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=/usr/local/opt/fzf
 
-nmap ; :Buffers<CR>
-nmap <Leader>f :Files<CR>
-nmap <Leader>e :Ag<CR>
-nmap <Leader>t :Tags<CR>
-nmap <Leader>r :BTags<CR>
-nmap <Leader>b :BLines<CR>
+" nmap ; :Buffers<CR>
+" nmap <Leader>f :Files<CR>
+" nmap <Leader>e :Ag<CR>
+" nmap <Leader>t :Tags<CR>
+" nmap <Leader>r :BTags<CR>
+" nmap <Leader>b :BLines<CR>
 
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
@@ -480,12 +493,22 @@ nmap <leader>gp :Gpush<CR>
 autocmd FocusLost,BufLeave * :wa
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://vim.fandom.com/wiki/Moving_lines_up_or_down
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+" Integrated Terminal
+" open new split panes to right and below
+set splitright
+set splitbelow
+" turn terminal to normal mode with escape
+" tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://zsh
+  resize 10
+endfunction
+nnoremap <leader>t :call OpenTerminal()<CR>
