@@ -252,10 +252,10 @@ map <Leader>k <Plug>(easymotion-k)
 " nvim-lua/plenary.nvim'
 " nvim-telescope/telescope.nvim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>f <cmd>Telescope find_files<cr>
-nnoremap <leader>e <cmd>Telescope live_grep<cr>
-nnoremap ; <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" nnoremap <leader>f <cmd>Telescope find_files<cr>
+" nnoremap <leader>e <cmd>Telescope live_grep<cr>
+" nnoremap ; <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
@@ -263,12 +263,12 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set rtp+=/usr/local/opt/fzf
 
-" nmap ; :Buffers<CR>
-" nmap <Leader>f :Files<CR>
-" nmap <Leader>e :Ag<CR>
-" nmap <Leader>t :Tags<CR>
-" nmap <Leader>r :BTags<CR>
-" nmap <Leader>b :BLines<CR>
+nmap ; :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>e :Ag<CR>
+nmap <Leader>t :Tags<CR>
+nmap <Leader>r :BTags<CR>
+nmap <Leader>b :BLines<CR>
 
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
