@@ -4,16 +4,21 @@
 
 - clean: ['~']
 
+- create:
+  - ~/.zsh/cache
+  - ~/.config
+  - ~/.config/nvim
+
 - link:
     ~/.zsh: .zsh
     ~/.zshenv: .zshenv
     ~/.tmux.conf: .tmux.conf
+    ~/.config/nvim/init.vim: .vimrc
     ~/.vimrc: .vimrc
     ~/.ideavimrc: .ideavimrc
     ~/.config/kitty: .config/kitty
+    ~/.config/nvim/coc-settings.json: coc-settings.json
 
-- create:
-  - ~/.zsh/cache
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-	Plug 'tpope/vim-sensible'
+    Plug 'tpope/vim-sensible'
 
     " Language support
     Plug 'fatih/vim-go'
@@ -7,10 +7,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'ekalinin/Dockerfile.vim'
 
     " Navigation
-	Plug 'easymotion/vim-easymotion'
-	Plug 'christoomey/vim-tmux-navigator'
-	Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'scrooloose/nerdtree'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'tpope/vim-commentary'
 
     " JavaScript / TypeScript / JSX
@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'kshenoy/vim-signature'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
-	Plug 'itchyny/lightline.vim'
+    Plug 'itchyny/lightline.vim'
     Plug 'junegunn/fzf.vim'
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'jiangmiao/auto-pairs'
