@@ -35,13 +35,14 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type f --exclude .git'
 
-export GOPATH=${HOME}/Developer/go
-export PATH=${HOME}/Developer/go/bin:$PATH
+export PATH=${HOME}/go/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export ANDROID_SDK=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+export JAVA_HOME=$(which java)
+export DOCKER_HOST=ssh://sergeiten@192.168.193.6
 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib"

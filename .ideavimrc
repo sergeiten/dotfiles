@@ -28,5 +28,6 @@ nmap gcc :action CommentByLineComment<cr>
 nmap <c-]> :action GotoNextError<cr>
 nmap <c-[> :action GotoPreviousError<cr>
 
-nmap <c-n> :action Project<cr>
+nmap <c-n> :action ActivateProjectToolWindow<cr>
 nmap <;> :action RecentFiles<cr>
+set ideajoin

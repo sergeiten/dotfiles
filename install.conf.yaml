@@ -17,7 +17,8 @@
     ~/.vimrc: .vimrc
     ~/.ideavimrc: .ideavimrc
     ~/.config/kitty: .config/kitty
-    ~/.config/nvim/coc-settings.json: coc-settings.json
+    ~/.config/nvim/coc-settings.json: .config/nvim/coc-settings.json
+    ~/.config/nvim/init.lua: .config/nvim/init.lua
 
 
 - shell:

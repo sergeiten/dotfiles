@@ -3,8 +3,8 @@ call plug#begin('~/.vim/plugged')
 
     " Language support
     Plug 'fatih/vim-go'
-    Plug 'jalvesaq/Nvim-R'
     Plug 'ekalinin/Dockerfile.vim'
+    Plug 'sheerun/vim-polyglot'
 
     " Navigation
     Plug 'easymotion/vim-easymotion'
@@ -17,11 +17,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'pangloss/vim-javascript'
     Plug 'HerringtonDarkholme/yats.vim'
     Plug 'maxmellon/vim-jsx-pretty'
-    " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
     " Colorschemes
-    Plug 'ayu-theme/ayu-vim'
-    Plug 'morhetz/gruvbox'
     Plug 'crusoexia/vim-monokai'
 
     " Utils
@@ -34,11 +31,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'jiangmiao/auto-pairs'
     Plug 'sjl/vitality.vim'
-    Plug 'mbbill/undotree'
-
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'preservim/tagbar'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " UI
     Plug 'ryanoasis/vim-devicons'
@@ -47,7 +41,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 if has("gui_running")
-    set guifont=Haskplex\ Nerd\ Regular:h14
+    set guifont=PragmataPro\ Nerd\ Font:h12
 else
     set t_Co=256
 
@@ -56,6 +50,7 @@ else
     endif
 endif
 
+set guifont=PragmataPro\ Nerd\ Font:h12
 
 
 " BASIC SETTINGS
@@ -85,7 +80,6 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
 colorscheme monokai
-" colorscheme gruvbox
 
 set ignorecase
 set smartcase
@@ -166,19 +160,19 @@ autocmd FileType make set noexpandtab
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM-GO
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_function_parameters = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_format_strings = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
 
 " let g:go_code_completion_enabled = 0
 " let g:go_auto_type_info = 0
@@ -188,6 +182,7 @@ let g:go_highlight_variable_assignments = 1
 " let g:go_decls_mode = 'fzf'
 " let g:go_fmt_command = "goimports"
 let g:go_def_mapping_enabled = 0
+" let g:go_gopls_enabled = 0
 " let g:go_def_mode='gopls'
 " let g:go_info_mode='gopls'
 " let g:go_list_type="quickfix"
@@ -204,9 +199,6 @@ let g:go_def_mapping_enabled = 0
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " au FileType go nmap <Leader>l <Plug>(go-metalinter)
 
-" " autocmd FileType go nmap <leader>b  <Plug>(go-build)
-" " autocmd FileType go nmap <leader>r  <Plug>(go-run)
-" " autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 " autocmd FileType go nmap <C-\> :GoDecls<CR>
 " " autocmd FileType go nmap <Leader>w :GoAlternate<CR>
@@ -224,6 +216,16 @@ let g:go_def_mapping_enabled = 0
 " autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 " autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
+autocmd FileType go nmap <leader>gb  <Plug>(go-build)
+autocmd FileType go nmap <leader>gr  <Plug>(go-run)
+autocmd FileType go nmap <leader>gt  <Plug>(go-test)
+autocmd FileType go nmap <leader>gv  <Plug>(go-coverage-toggle)
+
+" autocmd BufEnter *.go nmap <leader>t  <Plug>(go-test)
+" autocmd BufEnter *.go nmap <leader>tt <Plug>(go-test-func)
+" autocmd BufEnter *.go nmap <leader>c  <Plug>(go-coverage-toggle)
+
+" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -247,17 +249,6 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" telescope.nvim
-" nvim-lua/popup.nvim
-" nvim-lua/plenary.nvim'
-" nvim-telescope/telescope.nvim'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" nnoremap <leader>f <cmd>Telescope find_files<cr>
-" nnoremap <leader>e <cmd>Telescope live_grep<cr>
-" nnoremap ; <cmd>Telescope buffers<cr>
-" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FZF
 " junegunn/fzf.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -266,7 +257,7 @@ set rtp+=/usr/local/opt/fzf
 nmap ; :Buffers<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>e :Ag<CR>
-nmap <Leader>t :Tags<CR>
+nmap <Leader>t Tags<CR>
 nmap <Leader>r :BTags<CR>
 nmap <Leader>b :BLines<CR>
 
@@ -294,6 +285,33 @@ let g:fzf_colors = {
     \ 'marker':  ['fg', 'Keyword'],
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Comment'] }
+
+function! s:tags_sink(line)
+  let parts = split(a:line, '\t\zs')
+  let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+  execute 'silent e' parts[1][:-2]
+  let [magic, &magic] = [&magic, 0]
+  execute excmd
+  let &magic = magic
+endfunction
+
+function! s:tags()
+  if empty(tagfiles())
+    echohl WarningMsg
+    echom 'Preparing tags'
+    echohl None
+    call system('ctags -R')
+  endif
+
+  call fzf#run({
+  \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+  \            '| grep -v -a ^!',
+  \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+  \ 'down':    '40%',
+  \ 'sink':    function('s:tags_sink')})
+endfunction
+
+command! Tags call s:tags()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -429,7 +447,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>ac  <Plug>(coc-codeaction)
 
 " Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> P :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
@@ -482,8 +500,8 @@ let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".g
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gs :G<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Gpush<CR>
+nmap <leader>gc :Git commit<CR>
+nmap <leader>gp :Git push<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -492,23 +510,23 @@ nmap <leader>gp :Gpush<CR>
 " auto save all files when focus is lost or when switching buffers
 autocmd FocusLost,BufLeave * :wa
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" preservim/tagbar
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <C-m> :TagbarToggle<CR>
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
 
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-
-" Integrated Terminal
-" open new split panes to right and below
-set splitright
-set splitbelow
-" turn terminal to normal mode with escape
-" tnoremap <Esc> <C-\><C-n>
-" start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-" open terminal on ctrl+n
-function! OpenTerminal()
-  split term://zsh
-  resize 10
-endfunction
-nnoremap <leader>t :call OpenTerminal()<CR>
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { },  -- list of language that will be disabled
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true
+  }
+}
+EOF
