@@ -1,6 +1,6 @@
 # Insert Mode
-bindkey -M viins '^P' up-history # ^K to previous command.
-bindkey -M viins '^N' down-history # ^J to next command.
+bindkey -M viins '^P' up-history # ^P to previous command.
+bindkey -M viins '^N' down-history # ^N to next command.
 bindkey -M viins '^E' vi-forward-char # Go forward char or complete current completion.
 bindkey -M viins '^F' forward-word # Go forward word
 bindkey -M viins '^U' backward-kill-line # Kill line backwards.

@@ -2,12 +2,12 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - create:
-  - ~/.zsh/cache
-  - ~/.config
-  - ~/.config/nvim
+    - ~/.zsh/cache
+    - ~/.config
+    - ~/.config/nvim
 
 - link:
     ~/.zsh: .zsh
@@ -17,9 +17,7 @@
     ~/.vimrc: .vimrc
     ~/.ideavimrc: .ideavimrc
     ~/.config/kitty: .config/kitty
-    ~/.config/nvim/coc-settings.json: .config/nvim/coc-settings.json
-    ~/.config/nvim/init.lua: .config/nvim/init.lua
-
+    ~/.config/nvim/lua: .config/nvim/lua
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]
