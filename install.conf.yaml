@@ -7,17 +7,13 @@
 - create:
     - ~/.zsh/cache
     - ~/.config
-    - ~/.config/nvim
 
 - link:
     ~/.zsh: .zsh
     ~/.zshenv: .zshenv
     ~/.tmux.conf: .tmux.conf
-    ~/.config/nvim/init.vim: .vimrc
-    ~/.vimrc: .vimrc
-    ~/.ideavimrc: .ideavimrc
     ~/.config/kitty: .config/kitty
-    ~/.config/nvim/lua: .config/nvim/lua
+    ~/.config/nvim: .config/nvim
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
