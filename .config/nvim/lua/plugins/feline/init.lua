@@ -11,6 +11,7 @@ local diagnostics = require("plugins.feline.components.diagnostics")
 local git_diff = require("plugins.feline.components.git-diff")
 local package_info_status = require("plugins.feline.components.package-info-status")
 local lsp_status = require("plugins.feline.components.lsp-status")
+local position = require("plugins.feline.components.position")
 
 ------------------------------------------------------------------------------------------
 ----------------------------------- SETUP ------------------------------------------------
@@ -34,6 +35,18 @@ feline.setup({
                 lsp_status,
             },
             {
+                position,
+                {
+                    provider = 'line_percentage'
+                },
+                {
+                    provider = 'scroll_bar'
+                },
+                {
+                    provider = {
+                        name = 'file_size',
+                    }
+                },
             },
         },
     },

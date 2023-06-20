@@ -126,6 +126,18 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/comment.nvim",
     url = "https://github.com/numtostr/comment.nvim"
   },
+  ["feline.nvim"] = {
+    config = { "require('plugins.feline')" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/feline.nvim",
+    url = "https://github.com/feline-nvim/feline.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    config = { "require('plugins.gitsigns')" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
   ["impatient.nvim"] = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/impatient.nvim",
@@ -282,14 +294,50 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('plugins.indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('plugins.telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins.nvim-cmp')
+time([[Config for nvim-cmp]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins.gitsigns')
+time([[Config for gitsigns.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('plugins.null-ls')
+time([[Config for null-ls.nvim]], false)
+-- Config for: feline.nvim
+time([[Config for feline.nvim]], true)
+require('plugins.feline')
+time([[Config for feline.nvim]], false)
+-- Config for: lspkind.nvim
+time([[Config for lspkind.nvim]], true)
+require('plugins.lspkind')
+time([[Config for lspkind.nvim]], false)
 -- Config for: vim-fugitive
 time([[Config for vim-fugitive]], true)
 require('plugins.vim-fugitive')
 time([[Config for vim-fugitive]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugins.indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins.nvim-treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: packer.nvim
+time([[Config for packer.nvim]], true)
+require('plugins.packer')
+time([[Config for packer.nvim]], false)
+-- Config for: cinnamon.nvim
+time([[Config for cinnamon.nvim]], true)
+require('plugins.cinnamon')
+time([[Config for cinnamon.nvim]], false)
 -- Config for: mason.nvim
 time([[Config for mason.nvim]], true)
 require('plugins.mason')
@@ -298,50 +346,22 @@ time([[Config for mason.nvim]], false)
 time([[Config for package-info.nvim]], true)
 require('plugins.package-info')
 time([[Config for package-info.nvim]], false)
--- Config for: packer.nvim
-time([[Config for packer.nvim]], true)
-require('plugins.packer')
-time([[Config for packer.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('plugins.telescope')
-time([[Config for telescope.nvim]], false)
 -- Config for: comment.nvim
 time([[Config for comment.nvim]], true)
 require('plugins.comment')
 time([[Config for comment.nvim]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-require('plugins.null-ls')
-time([[Config for null-ls.nvim]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins.nvim-treesitter')
-time([[Config for nvim-treesitter]], false)
--- Config for: lspkind.nvim
-time([[Config for lspkind.nvim]], true)
-require('plugins.lspkind')
-time([[Config for lspkind.nvim]], false)
--- Config for: cinnamon.nvim
-time([[Config for cinnamon.nvim]], true)
-require('plugins.cinnamon')
-time([[Config for cinnamon.nvim]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins.nvim-cmp')
-time([[Config for nvim-cmp]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
-vim.cmd [[ packadd nvim-autopairs ]]
-
--- Config for: nvim-autopairs
-require('plugins.nvim-autopairs')
-
 vim.cmd [[ packadd nvim-web-devicons ]]
 vim.cmd [[ packadd nvim-tree.lua ]]
 
 -- Config for: nvim-tree.lua
 require('plugins.nvim-tree')
+
+vim.cmd [[ packadd nvim-autopairs ]]
+
+-- Config for: nvim-autopairs
+require('plugins.nvim-autopairs')
 
 time([[Sequenced loading]], false)
 

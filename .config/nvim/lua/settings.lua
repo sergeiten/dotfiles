@@ -118,6 +118,7 @@ vim.cmd([[
     autocmd FileType typescript.tsx setlocal sw=2 ts=2 sts=0 expandtab
     autocmd FileType typescriptreact setlocal sw=2 ts=2 sts=0 expandtab
     autocmd FileType json setlocal sw=2 ts=2 sts=2 expandtab
+    autocmd FileType jsonc setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType css setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType scss setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType html setlocal sw=2 ts=2 sts=2 expandtab
@@ -159,6 +160,8 @@ vim.cmd([[
               \   call nvim_input('<CR>')  |
               \ endif
     augroup END
+
+    au FocusLost * :wa
 ]])
 
 -- Ignore capitalized word misspelling

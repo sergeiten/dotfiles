@@ -21,6 +21,7 @@ local diagnostics = null_ls.builtins.diagnostics
 local actions = null_ls.builtins.code_actions
 
 null_ls.setup({
+    -- debug = true,
     default_timeout = 20000,
     sources = {
         formatter.stylua,
@@ -29,6 +30,7 @@ null_ls.setup({
         formatter.djlint,
         prettier.formatter,
         eslint.formatter,
+        eslint.diagnostics,
 
         diagnostics.shellcheck.with({ extra_args = { "-e SC2034" } }),
         diagnostics.hadolint,

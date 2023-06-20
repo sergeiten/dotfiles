@@ -73,11 +73,11 @@ return require("packer").startup({
             "declancm/cinnamon.nvim",
             config = load_file("cinnamon"),
         })
-        -- use({
-        --     "feline-nvim/feline.nvim",
-        --     config = load_file("feline"),
-        --     requires = "kyazdani42/nvim-web-devicons",
-        -- })
+        use({
+            "feline-nvim/feline.nvim",
+            config = load_file("feline"),
+            requires = "kyazdani42/nvim-web-devicons",
+        })
         use({
             "vuki656/package-info.nvim",
             config = load_file("package-info"),
@@ -96,11 +96,11 @@ return require("packer").startup({
         use({
             "broadinstitute/vim-wdl",
         })
-        -- use({
-        --     "lewis6991/gitsigns.nvim",
-        --     config = load_file("gitsigns"),
-        --     requires = "nvim-lua/plenary.nvim",
-        -- })
+        use({
+            "lewis6991/gitsigns.nvim",
+            config = load_file("gitsigns"),
+            requires = "nvim-lua/plenary.nvim",
+        })
         use({
             "lukas-reineke/indent-blankline.nvim",
             config = load_file("indent-blankline"),
@@ -110,7 +110,7 @@ return require("packer").startup({
             config = load_file("vim-fugitive"),
         })
         use({
-            "Glench/Vim-Jinja2-Syntax"
+            "Glench/Vim-Jinja2-Syntax",
         })
     end,
 })

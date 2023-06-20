@@ -7,6 +7,7 @@ local diagnostics = null_ls.builtins.diagnostics.eslint_d.with({
 })
 
 local formatter = null_ls.builtins.formatting.eslint_d.with({
+    -- args = {"--fix", "$FILENAME", "--cache"},
     extra_args = { "--cache" },
     filetypes = filetypes,
 })

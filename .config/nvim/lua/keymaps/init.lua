@@ -141,6 +141,11 @@ set_keymap({
             key = "<LEADER>=",
             actions = "<C-w>=",
             description = "Make splits size equal",
+        },
+        {
+            key = "<LEADER>c",
+            actions = ":lclose | :cclose<CR>",
+            description = "Close location list or quickfix",
         }
     },
 })
