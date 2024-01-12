@@ -30,6 +30,18 @@ telescope.setup({
 			".next",
 			".idea",
 			".yarn",
+			".svg",
+		},
+		layout_strategy = "vertical",
+		layout_config = { height = 0.95 },
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true, -- override the file sorter
+			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+			-- the default case_mode is "smart_case"
 		},
 	},
 })
@@ -57,12 +69,23 @@ set_keymap({
 			description = "Find text in project",
 		},
 		{
+			key = "<LEADER>s",
+			actions = function()
+				builtin.resume({
+					noremap = true,
+					silent = true,
+					desc = "Resume",
+				})
+			end,
+			description = "Resume",
+		},
+		{
 			key = "<LEADER>r",
 			actions = builtin.lsp_document_symbols,
 			description = "Find symbols in project",
 		},
 		{
-			key = ";",
+			key = "\\",
 			actions = function()
 				builtin.buffers({
 					sort_lastused = true,

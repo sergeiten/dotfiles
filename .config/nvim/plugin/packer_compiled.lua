@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -176,6 +176,11 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/monokai.nvim",
     url = "https://github.com/tanvirtin/monokai.nvim"
   },
+  ["nextflow-vim"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nextflow-vim",
+    url = "https://github.com/LukeGoodsell/nextflow-vim"
+  },
   ["nui.nvim"] = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nui.nvim",
@@ -294,62 +299,62 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('plugins.telescope')
-time([[Config for telescope.nvim]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins.nvim-cmp')
-time([[Config for nvim-cmp]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require('plugins.gitsigns')
-time([[Config for gitsigns.nvim]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-require('plugins.null-ls')
-time([[Config for null-ls.nvim]], false)
--- Config for: feline.nvim
-time([[Config for feline.nvim]], true)
-require('plugins.feline')
-time([[Config for feline.nvim]], false)
--- Config for: lspkind.nvim
-time([[Config for lspkind.nvim]], true)
-require('plugins.lspkind')
-time([[Config for lspkind.nvim]], false)
--- Config for: vim-fugitive
-time([[Config for vim-fugitive]], true)
-require('plugins.vim-fugitive')
-time([[Config for vim-fugitive]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('plugins.indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins.nvim-treesitter')
-time([[Config for nvim-treesitter]], false)
 -- Config for: packer.nvim
 time([[Config for packer.nvim]], true)
 require('plugins.packer')
 time([[Config for packer.nvim]], false)
--- Config for: cinnamon.nvim
-time([[Config for cinnamon.nvim]], true)
-require('plugins.cinnamon')
-time([[Config for cinnamon.nvim]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-require('plugins.mason')
-time([[Config for mason.nvim]], false)
--- Config for: package-info.nvim
-time([[Config for package-info.nvim]], true)
-require('plugins.package-info')
-time([[Config for package-info.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('plugins.null-ls')
+time([[Config for null-ls.nvim]], false)
 -- Config for: comment.nvim
 time([[Config for comment.nvim]], true)
 require('plugins.comment')
 time([[Config for comment.nvim]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins.gitsigns')
+time([[Config for gitsigns.nvim]], false)
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+require('plugins.vim-fugitive')
+time([[Config for vim-fugitive]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+require('plugins.mason')
+time([[Config for mason.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins.nvim-cmp')
+time([[Config for nvim-cmp]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins.nvim-treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: package-info.nvim
+time([[Config for package-info.nvim]], true)
+require('plugins.package-info')
+time([[Config for package-info.nvim]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugins.indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: feline.nvim
+time([[Config for feline.nvim]], true)
+require('plugins.feline')
+time([[Config for feline.nvim]], false)
+-- Config for: cinnamon.nvim
+time([[Config for cinnamon.nvim]], true)
+require('plugins.cinnamon')
+time([[Config for cinnamon.nvim]], false)
+-- Config for: lspkind.nvim
+time([[Config for lspkind.nvim]], true)
+require('plugins.lspkind')
+time([[Config for lspkind.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('plugins.telescope')
+time([[Config for telescope.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-web-devicons ]]

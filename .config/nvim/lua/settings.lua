@@ -4,6 +4,13 @@ local LSP_ICONS = require("lsp.utils.icons")
 ------------------------------------------------------------------------------------------
 ----------------------------------- GLOBAL -----------------------------------------------
 ------------------------------------------------------------------------------------------
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
 -- Set leader
 vim.g.mapleader = " "
 
@@ -126,7 +133,10 @@ vim.cmd([[
     autocmd FileType yaml setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType jinja.html setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType wdl setlocal sw=2 ts=2 sts=2 expandtab
+    autocmd FileType r setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType make set noexpandtab
+
+    au BufRead,BufNewFile *.ejs set filetype=html
 
 
     " Don't continue comment when adding a new line above/under comment
@@ -174,34 +184,34 @@ vim.cmd([[
 ]])
 
 set_sign({
-    list = {
-        { name = "DiagnosticSignError", sign = LSP_ICONS.ERROR, highlight_group = "DiagnosticSignError" },
-        { name = "DiagnosticSignWarn", sign = LSP_ICONS.WARNING, highlight_group = "DiagnosticSignWarn" },
-        { name = "DiagnosticSignInfo", sign = LSP_ICONS.INFO, highlight_group = "DiagnosticSignInfo" },
-        { name = "DiagnosticSignHint", sign = LSP_ICONS.HINT, highlight_group = "DiagnosticSignHint" },
-    },
+	list = {
+		{ name = "DiagnosticSignError", sign = LSP_ICONS.ERROR, highlight_group = "DiagnosticSignError" },
+		{ name = "DiagnosticSignWarn", sign = LSP_ICONS.WARNING, highlight_group = "DiagnosticSignWarn" },
+		{ name = "DiagnosticSignInfo", sign = LSP_ICONS.INFO, highlight_group = "DiagnosticSignInfo" },
+		{ name = "DiagnosticSignHint", sign = LSP_ICONS.HINT, highlight_group = "DiagnosticSignHint" },
+	},
 })
 
 -- Show diagnostic source name
 vim.diagnostic.config({
-    virtual_text = {
-        source = "always",
-        prefix = "●",
-    },
-    severity_sort = true,
-    float = {
-        source = "always",
-    },
+	virtual_text = {
+		source = "always",
+		prefix = "●",
+	},
+	severity_sort = true,
+	float = {
+		source = "always",
+	},
 })
 
 -- Disable diagnostic for .env files
 local group = vim.api.nvim_create_augroup("__env", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = ".env",
-    group = group,
-    callback = function(args)
-        vim.diagnostic.disable(args.buf)
-    end
+	pattern = ".env",
+	group = group,
+	callback = function(args)
+		vim.diagnostic.disable(args.buf)
+	end,
 })
 
 -- vim.lsp.set_log_level('debug')
