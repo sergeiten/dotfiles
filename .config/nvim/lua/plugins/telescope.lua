@@ -35,6 +35,12 @@ telescope.setup({
 		layout_strategy = "vertical",
 		layout_config = { height = 0.95 },
 	},
+	pickers = {
+		find_files = {
+			-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true, -- false will only do exact matching
@@ -85,7 +91,7 @@ set_keymap({
 			description = "Find symbols in project",
 		},
 		{
-			key = "\\",
+			key = "<LEADER>b",
 			actions = function()
 				builtin.buffers({
 					sort_lastused = true,
@@ -95,7 +101,7 @@ set_keymap({
 			description = "Buffers",
 		},
 		{
-			key = "<LEADER>pad",
+			key = "<LEADER>pd",
 			actions = builtin.diagnostics,
 			description = "Find project diagnostics (errors, warnings...)",
 		},

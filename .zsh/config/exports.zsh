@@ -29,15 +29,19 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
 
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --type f --exclude .git'
+
 export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/sbin:$PATH
+export PATH=$HOME/.docker/bin:$PATH
+
 # export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-export PATH=/opt/homebrew/opt/llvm/bin:$PATH
-export PATH=/opt/homebrew/opt/openjdk@11/bin:$PATH
+# export PATH=/opt/homebrew/opt/llvm/bin:$PATH
+export PATH=/opt/homebrew/opt/openjdk@17/bin:$PATH
 export GOPATH=$(go env GOPATH)
 export PATH=$PATH:$GOPATH/bin
 
-export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
-export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH
+# export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
+# export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/lib"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/openssl@1.1/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -I/opt/homebrew/opt/openssl@1.1/include"
@@ -47,9 +51,12 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 # export ANDROID_SDK=/opt/homebrew/Caskroom/android-sdk/4333796
 # export ANDROID_SDK_ROOT=/opt/homebrew/Caskroom/android-sdk/4333796
-export PATH=$ANDROID_HOME/tools/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-export JAVA_HOME=/opt/homebrew/opt/openjdk@11
-export DOCKER_HOST=tcp://192.168.193.6:2375
+export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+export JAVA_HOME=/opt/homebrew/opt/openjdk@17
+# export DOCKER_HOST=tcp://192.168.193.6:2375
+
+export CGO_CFLAGS="$(pkg-config --cflags openssl)"
+export CGO_LDFLAGS="$(pkg-config --libs openssl)"
 
 
 # ls

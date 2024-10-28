@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1703358377/lib/lua/5.1/?.so"
+local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -79,17 +79,6 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/l3mon4d3/LuaSnip"
   },
-  ["Vim-Jinja2-Syntax"] = {
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/Vim-Jinja2-Syntax",
-    url = "https://github.com/Glench/Vim-Jinja2-Syntax"
-  },
-  ["cinnamon.nvim"] = {
-    config = { "require('plugins.cinnamon')" },
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/cinnamon.nvim",
-    url = "https://github.com/declancm/cinnamon.nvim"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -104,6 +93,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lsp-document-symbol"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-document-symbol",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol"
+  },
+  ["cmp-nvim-lsp-signature-help"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
   ["cmp-nvim-lua"] = {
     loaded = true,
@@ -126,22 +125,23 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/comment.nvim",
     url = "https://github.com/numtostr/comment.nvim"
   },
-  ["feline.nvim"] = {
-    config = { "require('plugins.feline')" },
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/feline.nvim",
-    url = "https://github.com/feline-nvim/feline.nvim"
-  },
   ["gitsigns.nvim"] = {
     config = { "require('plugins.gitsigns')" },
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
-  ["impatient.nvim"] = {
+  ["goto-preview"] = {
+    config = { "\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0" },
     loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/impatient.nvim",
-    url = "https://github.com/lewis6991/impatient.nvim"
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/goto-preview",
+    url = "https://github.com/rmagatti/goto-preview"
+  },
+  harpoon = {
+    config = { "require('plugins.harpoon')" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["indent-blankline.nvim"] = {
     config = { "require('plugins.indent-blankline')" },
@@ -154,6 +154,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
     url = "https://github.com/onsails/lspkind.nvim"
+  },
+  ["lualine.nvim"] = {
+    config = { "require('plugins.lualine')" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -176,15 +182,11 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/monokai.nvim",
     url = "https://github.com/tanvirtin/monokai.nvim"
   },
-  ["nextflow-vim"] = {
+  ["neoscroll.nvim"] = {
+    config = { "require('plugins.neoscroll')" },
     loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nextflow-vim",
-    url = "https://github.com/LukeGoodsell/nextflow-vim"
-  },
-  ["nui.nvim"] = {
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nui.nvim",
-    url = "https://github.com/muniftanjim/nui.nvim"
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
+    url = "https://github.com/karb94/neoscroll.nvim"
   },
   ["null-ls.nvim"] = {
     config = { "require('plugins.null-ls')" },
@@ -237,12 +239,6 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
-  ["package-info.nvim"] = {
-    config = { "require('plugins.package-info')" },
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/package-info.nvim",
-    url = "https://github.com/vuki656/package-info.nvim"
-  },
   ["packer.nvim"] = {
     config = { "require('plugins.packer')" },
     loaded = true,
@@ -275,10 +271,20 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["tree-sitter-blade"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/tree-sitter-blade",
+    url = "https://github.com/EmranMR/tree-sitter-blade"
+  },
   ["typescript.nvim"] = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/typescript.nvim",
-    url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+    url = "https://github.com/sergeiten/typescript.nvim"
+  },
+  ["vim-blade"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/vim-blade",
+    url = "https://github.com/jwalton512/vim-blade"
   },
   ["vim-fugitive"] = {
     config = { "require('plugins.vim-fugitive')" },
@@ -290,27 +296,34 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
     url = "https://github.com/christoomey/vim-tmux-navigator"
-  },
-  ["vim-wdl"] = {
-    loaded = true,
-    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/vim-wdl",
-    url = "https://github.com/broadinstitute/vim-wdl"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: packer.nvim
-time([[Config for packer.nvim]], true)
-require('plugins.packer')
-time([[Config for packer.nvim]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-require('plugins.null-ls')
-time([[Config for null-ls.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('plugins.telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins.nvim-treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+require('plugins.mason')
+time([[Config for mason.nvim]], false)
 -- Config for: comment.nvim
 time([[Config for comment.nvim]], true)
 require('plugins.comment')
 time([[Config for comment.nvim]], false)
+-- Config for: lspkind.nvim
+time([[Config for lspkind.nvim]], true)
+require('plugins.lspkind')
+time([[Config for lspkind.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins.nvim-cmp')
+time([[Config for nvim-cmp]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 require('plugins.gitsigns')
@@ -319,54 +332,46 @@ time([[Config for gitsigns.nvim]], false)
 time([[Config for vim-fugitive]], true)
 require('plugins.vim-fugitive')
 time([[Config for vim-fugitive]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-require('plugins.mason')
-time([[Config for mason.nvim]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins.nvim-cmp')
-time([[Config for nvim-cmp]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins.nvim-treesitter')
-time([[Config for nvim-treesitter]], false)
--- Config for: package-info.nvim
-time([[Config for package-info.nvim]], true)
-require('plugins.package-info')
-time([[Config for package-info.nvim]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+require('plugins.neoscroll')
+time([[Config for neoscroll.nvim]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+require('plugins.lualine')
+time([[Config for lualine.nvim]], false)
+-- Config for: harpoon
+time([[Config for harpoon]], true)
+require('plugins.harpoon')
+time([[Config for harpoon]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+require('plugins.null-ls')
+time([[Config for null-ls.nvim]], false)
+-- Config for: packer.nvim
+time([[Config for packer.nvim]], true)
+require('plugins.packer')
+time([[Config for packer.nvim]], false)
 -- Config for: indent-blankline.nvim
 time([[Config for indent-blankline.nvim]], true)
 require('plugins.indent-blankline')
 time([[Config for indent-blankline.nvim]], false)
--- Config for: feline.nvim
-time([[Config for feline.nvim]], true)
-require('plugins.feline')
-time([[Config for feline.nvim]], false)
--- Config for: cinnamon.nvim
-time([[Config for cinnamon.nvim]], true)
-require('plugins.cinnamon')
-time([[Config for cinnamon.nvim]], false)
--- Config for: lspkind.nvim
-time([[Config for lspkind.nvim]], true)
-require('plugins.lspkind')
-time([[Config for lspkind.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('plugins.telescope')
-time([[Config for telescope.nvim]], false)
+-- Config for: goto-preview
+time([[Config for goto-preview]], true)
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0", "config", "goto-preview")
+time([[Config for goto-preview]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
+vim.cmd [[ packadd nvim-autopairs ]]
+
+-- Config for: nvim-autopairs
+require('plugins.nvim-autopairs')
+
 vim.cmd [[ packadd nvim-web-devicons ]]
 vim.cmd [[ packadd nvim-tree.lua ]]
 
 -- Config for: nvim-tree.lua
 require('plugins.nvim-tree')
-
-vim.cmd [[ packadd nvim-autopairs ]]
-
--- Config for: nvim-autopairs
-require('plugins.nvim-autopairs')
 
 time([[Sequenced loading]], false)
 

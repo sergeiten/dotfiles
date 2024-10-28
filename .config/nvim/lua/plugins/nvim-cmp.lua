@@ -56,6 +56,8 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_document_symbol" },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "luasnip" },
 		{
 			name = "buffer",
@@ -85,9 +87,9 @@ cmp.setup({
 
 -- Command source for commands
 cmp.setup.cmdline(":", {
-    completion = { autocomplete = false },
+	completion = { autocomplete = false },
 	sources = {
-        { name = 'path' },
+		{ name = "path" },
 		{ name = "cmdline" },
 	},
 	mapping = cmp.mapping.preset.cmdline(),

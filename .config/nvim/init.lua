@@ -1,6 +1,4 @@
-require("impatient")
-
 require("plugins")
 require("settings")
--- require("colorscheme")
+require("colorscheme")
 require("keymaps")

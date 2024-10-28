@@ -11,6 +11,7 @@ local root_files = {
 	"requirements.txt",
 	"Pipfile",
 	"pyrightconfig.json",
+	".git",
 }
 
 local capabilities = require("lsp.utils.capabilities")

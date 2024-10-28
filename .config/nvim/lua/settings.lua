@@ -118,6 +118,9 @@ vim.cmd([[
     " Enable syntax
     syntax on
 
+    au BufRead,BufNewFile *.ejs set filetype=html
+    au BufNewFile,BufRead *.blade.php set ft=blade
+
     autocmd FileType javascript setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType javascript.jsx setlocal sw=2 ts=2 sts=0 expandtab
     autocmd FileType javascriptreact setlocal sw=2 ts=2 sts=2 expandtab
@@ -134,10 +137,8 @@ vim.cmd([[
     autocmd FileType jinja.html setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType wdl setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType r setlocal sw=2 ts=2 sts=2 expandtab
-    autocmd FileType make set noexpandtab
-
-    au BufRead,BufNewFile *.ejs set filetype=html
-
+    autocmd FileType blade setlocal sw=2 ts=2 sts=2 expandtab
+    autocmd FileType make setlocal noexpandtab
 
     " Don't continue comment when adding a new line above/under comment
     autocmd BufNewFile,BufRead * setlocal formatoptions-=ro

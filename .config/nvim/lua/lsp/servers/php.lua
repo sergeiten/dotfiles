@@ -1,3 +1,73 @@
 local lsp = require("lspconfig")
 
-lsp.phpactor.setup({})
+-- lsp.phpactor.setup({
+-- 	init_options = {
+-- 		-- ["logging.enabled"] = true,
+-- 		-- ["logging.path"] = "/Users/sergeiten/Downloads/phpactor.log",
+-- 		-- ["logging.level"] = "debug",
+-- 		["language_server_phpstan.enabled"] = true,
+-- 		["language_server_phpstan.bin"] = "~/.local/share/nvim/mason/bin/phpstan",
+-- 	},
+-- })
+
+lsp.intelephense.setup({
+	settings = {
+		intelephense = {
+			stubs = {
+				"bcmath",
+				"bz2",
+				"Core",
+				"curl",
+				"date",
+				"dom",
+				"fileinfo",
+				"filter",
+				"gd",
+				"gettext",
+				"hash",
+				"iconv",
+				"imap",
+				"intl",
+				"json",
+				"libxml",
+				"mbstring",
+				"mcrypt",
+				"mysql",
+				"mysqli",
+				"password",
+				"pcntl",
+				"pcre",
+				"PDO",
+				"pdo_mysql",
+				"Phar",
+				"readline",
+				"regex",
+				"session",
+				"SimpleXML",
+				"sockets",
+				"sodium",
+				"standard",
+				"superglobals",
+				"tokenizer",
+				"xml",
+				"xdebug",
+				"xmlreader",
+				"xmlwriter",
+				"yaml",
+				"zip",
+				"zlib",
+				"acf-pro-stubs",
+				"genesis-stubs",
+				"polylang-stubs",
+				"mongo",
+				"mongodb",
+			},
+			environment = {
+				includePaths = { "/home/sergeiten/.config/composer/vendor/jetbrains/phpstorm-stubs/" },
+			},
+			files = {
+				maxSize = 5000000,
+			},
+		},
+	},
+})

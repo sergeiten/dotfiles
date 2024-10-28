@@ -6,7 +6,6 @@ return require("packer").startup({
 			"wbthomason/packer.nvim",
 			config = load_file("packer"),
 		})
-		use("lewis6991/impatient.nvim")
 		use("b0o/schemastore.nvim")
 		use("christoomey/vim-tmux-navigator")
 		use("tanvirtin/monokai.nvim")
@@ -51,6 +50,8 @@ return require("packer").startup({
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-cmdline",
 				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lsp-document-symbol",
+				"hrsh7th/cmp-nvim-lsp-signature-help",
 			},
 		})
 		use("neovim/nvim-lspconfig")
@@ -63,26 +64,26 @@ return require("packer").startup({
 				{ "whoissethdaniel/mason-tool-installer.nvim" },
 			},
 		})
-		use("jose-elias-alvarez/typescript.nvim")
+		-- use("jose-elias-alvarez/typescript.nvim")
+		use("sergeiten/typescript.nvim")
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			config = load_file("null-ls"),
 			requires = "nvim-lua/plenary.nvim",
 		})
+		-- use({
+		-- 	"declancm/cinnamon.nvim",
+		-- 	config = load_file("cinnamon"),
+		-- })
 		use({
-			"declancm/cinnamon.nvim",
-			config = load_file("cinnamon"),
+			"karb94/neoscroll.nvim",
+			config = load_file("neoscroll"),
 		})
-		use({
-			"feline-nvim/feline.nvim",
-			config = load_file("feline"),
-			requires = "kyazdani42/nvim-web-devicons",
-		})
-		use({
-			"vuki656/package-info.nvim",
-			config = load_file("package-info"),
-			requires = "muniftanjim/nui.nvim",
-		})
+		-- use({
+		-- 	"feline-nvim/feline.nvim",
+		-- 	config = load_file("feline"),
+		-- 	requires = "kyazdani42/nvim-web-devicons",
+		-- })
 		use({
 			"windwp/nvim-autopairs",
 			after = "nvim-cmp",
@@ -92,9 +93,6 @@ return require("packer").startup({
 			"numtostr/comment.nvim",
 			config = load_file("comment"),
 			requires = "joosepalviste/nvim-ts-context-commentstring",
-		})
-		use({
-			"broadinstitute/vim-wdl",
 		})
 		use({
 			"lewis6991/gitsigns.nvim",
@@ -110,10 +108,34 @@ return require("packer").startup({
 			config = load_file("vim-fugitive"),
 		})
 		use({
-			"Glench/Vim-Jinja2-Syntax",
+			"ThePrimeagen/harpoon",
+			branch = "harpoon2",
+			requires = "nvim-lua/plenary.nvim",
+			config = load_file("harpoon"),
 		})
 		use({
-			"LukeGoodsell/nextflow-vim",
+			"EmranMR/tree-sitter-blade",
 		})
+		use({
+			"jwalton512/vim-blade",
+		})
+		use({
+			"rmagatti/goto-preview",
+			config = function()
+				require("goto-preview").setup({})
+			end,
+		})
+		use({
+			"nvim-lualine/lualine.nvim",
+			requires = { "nvim-tree/nvim-web-devicons", opt = true },
+			config = load_file("lualine"),
+		})
+		-- use({
+		-- 	"andythigpen/nvim-coverage",
+		-- 	requires = "nvim-lua/plenary.nvim",
+		-- 	-- Optional: needed for PHP when using the cobertura parser
+		-- 	rocks = { "lua-xmlreader" },
+		-- 	config = load_file("nvim-coverage"),
+		-- })
 	end,
 })

@@ -101,7 +101,7 @@ set_highlight({
 		{ group = "PmenuSel", background = green, foreground = background },
 		{ group = "LineNr", background = background, foreground = grey },
 		{ group = "WinSeparator", foreground = background_light },
-		{ group = "Visual", background = red },
+		{ group = "Visual", background = grey },
 		{ group = "MatchParen", foreground = red, background = background },
 		{ group = "ErrorMsg", foreground = red, background = background },
 		{ group = "Error", foreground = red, background = background },

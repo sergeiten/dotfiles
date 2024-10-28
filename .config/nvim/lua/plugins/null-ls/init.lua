@@ -28,12 +28,10 @@ null_ls.setup({
 		formatter.fixjson,
 		formatter.shfmt.with({ extra_args = { "-i=4" } }),
 		formatter.djlint,
-		formatter.phpcbf,
-		-- formatter.yq,
-		-- formatter.yamlfmt,
-		-- formatter.yamlfix,
+		formatter.pint,
+		formatter.blade_formatter,
 		prettier.formatter,
-		eslint.formatter,
+		-- eslint.formatter,
 		eslint.diagnostics,
 
 		diagnostics.shellcheck.with({ extra_args = { "-e SC2034" } }),
@@ -61,7 +59,7 @@ null_ls.setup({
 			end,
 		}),
 		diagnostics.djlint,
-		diagnostics.php,
+		-- diagnostics.php,
 		diagnostics.phpstan,
 		-- diagnostics.phpmd.with({
 		-- 	extra_args = function()
@@ -88,6 +86,20 @@ null_ls.setup({
 		formatter.goimports,
 	},
 	on_attach = function(client, bufnr)
+		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = augroup,
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format({
+					bufnr = bufnr,
+					async = false,
+					filter = function(c)
+						return c.name == "null-ls"
+					end,
+				})
+			end,
+		})
 		if client.supports_method("textDocument/formatting") then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
