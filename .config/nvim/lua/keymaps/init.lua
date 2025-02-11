@@ -177,3 +177,22 @@ set_keymap({
 		},
 	},
 })
+
+set_keymap({
+	list = {
+		{
+			key = "<LEADER>d",
+			actions = function()
+				vim.diagnostic.setqflist()
+			end,
+			description = "Open diagnostic in quickfix",
+		},
+		{
+			key = "<LEADER>de",
+			actions = function()
+				vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+			end,
+			description = "Open diagnostic errors only in quickfix",
+		},
+	},
+})

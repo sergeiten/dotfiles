@@ -102,7 +102,9 @@ set_keymap({
 		},
 		{
 			key = "<LEADER>pd",
-			actions = builtin.diagnostics,
+			actions = function()
+				builtin.diagnostics({ severity_bound = 0 })
+			end,
 			description = "Find project diagnostics (errors, warnings...)",
 		},
 		{

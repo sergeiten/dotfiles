@@ -52,7 +52,15 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 	},
 	formatting = {
-		format = icons.cmp_format(),
+		format = icons.cmp_format({
+			maxwidth = {
+				-- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+				-- can also be a function to dynamically calculate max width such as
+				-- menu = function() return math.floor(0.45 * vim.o.columns) end,
+				menu = 50, -- leading text (labelDetails)
+				abbr = 50, -- actual suggestion item
+			},
+		}),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -77,12 +85,12 @@ cmp.setup({
 			max_item_count = 20,
 		},
 	},
-	-- sorting = {
-	-- 	comparators = {
-	-- 		cmp.config.compare.offset,
-	-- 		cmp.config.compare.score,
-	-- 	},
-	-- },
+	sorting = {
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.score,
+		},
+	},
 })
 
 -- Command source for commands

@@ -84,6 +84,7 @@ null_ls.setup({
 		formatter.black,
 		formatter.isort,
 		formatter.goimports,
+		diagnostics.golangci_lint,
 	},
 	on_attach = function(client, bufnr)
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })

@@ -1,6 +1,8 @@
 local set_sign = require("utils.set-sign")
 local LSP_ICONS = require("lsp.utils.icons")
 
+vim.api.nvim_set_keymap("v", "<Esc>", "<Esc>", { noremap = true, silent = true })
+
 ------------------------------------------------------------------------------------------
 ----------------------------------- GLOBAL -----------------------------------------------
 ------------------------------------------------------------------------------------------
@@ -214,5 +216,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.diagnostic.disable(args.buf)
 	end,
 })
+
+-- Auto resize splits
+vim.cmd([[
+    autocmd VimResized * wincmd =
+]])
 
 -- vim.lsp.set_log_level('debug')

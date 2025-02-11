@@ -71,19 +71,10 @@ return require("packer").startup({
 			config = load_file("null-ls"),
 			requires = "nvim-lua/plenary.nvim",
 		})
-		-- use({
-		-- 	"declancm/cinnamon.nvim",
-		-- 	config = load_file("cinnamon"),
-		-- })
 		use({
 			"karb94/neoscroll.nvim",
 			config = load_file("neoscroll"),
 		})
-		-- use({
-		-- 	"feline-nvim/feline.nvim",
-		-- 	config = load_file("feline"),
-		-- 	requires = "kyazdani42/nvim-web-devicons",
-		-- })
 		use({
 			"windwp/nvim-autopairs",
 			after = "nvim-cmp",
@@ -130,6 +121,35 @@ return require("packer").startup({
 			requires = { "nvim-tree/nvim-web-devicons", opt = true },
 			config = load_file("lualine"),
 		})
+		use({
+			"dmmulroy/ts-error-translator.nvim",
+			config = function()
+				require("ts-error-translator").setup()
+			end,
+		})
+		use({
+			"ray-x/go.nvim",
+			config = function()
+				require("go").setup()
+			end,
+		})
+		use("ray-x/guihua.lua") -- recommended if need floating window support
+		use({
+			"stevearc/oil.nvim",
+			config = load_file("oil"),
+		})
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = function()
+				vim.fn["mkdp#util#install"]()
+			end,
+		})
+		-- use({
+		-- 	"jake-stewart/multicursor.nvim",
+		-- 	branch = "1.0",
+		-- 	config = load_file("multicursor"),
+		-- })
+
 		-- use({
 		-- 	"andythigpen/nvim-coverage",
 		-- 	requires = "nvim-lua/plenary.nvim",

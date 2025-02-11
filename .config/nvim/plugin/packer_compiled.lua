@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1720049189/lib/lua/5.1/?.so"
+local package_path_str = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1736781742/share/lua/5.1/?/init.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?.lua;/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1736781742/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/sergeiten/.cache/nvim/packer_hererocks/2.1.1736781742/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -131,11 +131,22 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["go.nvim"] = {
+    config = { "\27LJ\2\n0\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\ago\frequire\0" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/go.nvim",
+    url = "https://github.com/ray-x/go.nvim"
+  },
   ["goto-preview"] = {
     config = { "\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0" },
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/goto-preview",
     url = "https://github.com/rmagatti/goto-preview"
+  },
+  ["guihua.lua"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/guihua.lua",
+    url = "https://github.com/ray-x/guihua.lua"
   },
   harpoon = {
     config = { "require('plugins.harpoon')" },
@@ -160,6 +171,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
+    url = "https://github.com/iamcco/markdown-preview.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -239,6 +255,12 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
+  ["oil.nvim"] = {
+    config = { "require('plugins.oil')" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/oil.nvim",
+    url = "https://github.com/stevearc/oil.nvim"
+  },
   ["packer.nvim"] = {
     config = { "require('plugins.packer')" },
     loaded = true,
@@ -276,6 +298,12 @@ _G.packer_plugins = {
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/tree-sitter-blade",
     url = "https://github.com/EmranMR/tree-sitter-blade"
   },
+  ["ts-error-translator.nvim"] = {
+    config = { "\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\24ts-error-translator\frequire\0" },
+    loaded = true,
+    path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/ts-error-translator.nvim",
+    url = "https://github.com/dmmulroy/ts-error-translator.nvim"
+  },
   ["typescript.nvim"] = {
     loaded = true,
     path = "/Users/sergeiten/.local/share/nvim/site/pack/packer/start/typescript.nvim",
@@ -300,6 +328,58 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins.nvim-cmp')
+time([[Config for nvim-cmp]], false)
+-- Config for: vim-fugitive
+time([[Config for vim-fugitive]], true)
+require('plugins.vim-fugitive')
+time([[Config for vim-fugitive]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugins.indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: harpoon
+time([[Config for harpoon]], true)
+require('plugins.harpoon')
+time([[Config for harpoon]], false)
+-- Config for: lspkind.nvim
+time([[Config for lspkind.nvim]], true)
+require('plugins.lspkind')
+time([[Config for lspkind.nvim]], false)
+-- Config for: goto-preview
+time([[Config for goto-preview]], true)
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0", "config", "goto-preview")
+time([[Config for goto-preview]], false)
+-- Config for: lualine.nvim
+time([[Config for lualine.nvim]], true)
+require('plugins.lualine')
+time([[Config for lualine.nvim]], false)
+-- Config for: packer.nvim
+time([[Config for packer.nvim]], true)
+require('plugins.packer')
+time([[Config for packer.nvim]], false)
+-- Config for: comment.nvim
+time([[Config for comment.nvim]], true)
+require('plugins.comment')
+time([[Config for comment.nvim]], false)
+-- Config for: oil.nvim
+time([[Config for oil.nvim]], true)
+require('plugins.oil')
+time([[Config for oil.nvim]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins.gitsigns')
+time([[Config for gitsigns.nvim]], false)
+-- Config for: go.nvim
+time([[Config for go.nvim]], true)
+try_loadstring("\27LJ\2\n0\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\ago\frequire\0", "config", "go.nvim")
+time([[Config for go.nvim]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+require('plugins.neoscroll')
+time([[Config for neoscroll.nvim]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 require('plugins.telescope')
@@ -308,58 +388,18 @@ time([[Config for telescope.nvim]], false)
 time([[Config for nvim-treesitter]], true)
 require('plugins.nvim-treesitter')
 time([[Config for nvim-treesitter]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-require('plugins.mason')
-time([[Config for mason.nvim]], false)
--- Config for: comment.nvim
-time([[Config for comment.nvim]], true)
-require('plugins.comment')
-time([[Config for comment.nvim]], false)
--- Config for: lspkind.nvim
-time([[Config for lspkind.nvim]], true)
-require('plugins.lspkind')
-time([[Config for lspkind.nvim]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins.nvim-cmp')
-time([[Config for nvim-cmp]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require('plugins.gitsigns')
-time([[Config for gitsigns.nvim]], false)
--- Config for: vim-fugitive
-time([[Config for vim-fugitive]], true)
-require('plugins.vim-fugitive')
-time([[Config for vim-fugitive]], false)
--- Config for: neoscroll.nvim
-time([[Config for neoscroll.nvim]], true)
-require('plugins.neoscroll')
-time([[Config for neoscroll.nvim]], false)
--- Config for: lualine.nvim
-time([[Config for lualine.nvim]], true)
-require('plugins.lualine')
-time([[Config for lualine.nvim]], false)
--- Config for: harpoon
-time([[Config for harpoon]], true)
-require('plugins.harpoon')
-time([[Config for harpoon]], false)
 -- Config for: null-ls.nvim
 time([[Config for null-ls.nvim]], true)
 require('plugins.null-ls')
 time([[Config for null-ls.nvim]], false)
--- Config for: packer.nvim
-time([[Config for packer.nvim]], true)
-require('plugins.packer')
-time([[Config for packer.nvim]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('plugins.indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
--- Config for: goto-preview
-time([[Config for goto-preview]], true)
-try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0", "config", "goto-preview")
-time([[Config for goto-preview]], false)
+-- Config for: ts-error-translator.nvim
+time([[Config for ts-error-translator.nvim]], true)
+try_loadstring("\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\24ts-error-translator\frequire\0", "config", "ts-error-translator.nvim")
+time([[Config for ts-error-translator.nvim]], false)
+-- Config for: mason.nvim
+time([[Config for mason.nvim]], true)
+require('plugins.mason')
+time([[Config for mason.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-autopairs ]]
