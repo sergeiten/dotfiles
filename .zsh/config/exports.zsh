@@ -25,10 +25,12 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_COLORS \
 	--height='40%' \
 	--layout='reverse' \
 	--inline-info \
-	--no-bold"
+	--no-bold \
+    --style full \
+    --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
 
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --hidden --follow --type f --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --style full --hidden --follow --type f --exclude .git'
 
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/sbin:$PATH
