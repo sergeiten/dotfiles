@@ -66,11 +66,11 @@ return require("packer").startup({
 		})
 		-- use("jose-elias-alvarez/typescript.nvim")
 		use("sergeiten/typescript.nvim")
-		use({
-			"jose-elias-alvarez/null-ls.nvim",
-			config = load_file("null-ls"),
-			requires = "nvim-lua/plenary.nvim",
-		})
+		--use({
+		--	"jose-elias-alvarez/null-ls.nvim",
+		--	config = load_file("null-ls"),
+		--	requires = "nvim-lua/plenary.nvim",
+		--})
 		use({
 			"karb94/neoscroll.nvim",
 			config = load_file("neoscroll"),
@@ -157,5 +157,13 @@ return require("packer").startup({
 		-- 	rocks = { "lua-xmlreader" },
 		-- 	config = load_file("nvim-coverage"),
 		-- })
+        use ({
+            'mfussenegger/nvim-lint',
+            config = load_file("nvim-lint")
+        })
+        use({
+            "stevearc/conform.nvim",
+            config = load_file("conform"),
+          })
 	end,
 })
