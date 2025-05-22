@@ -17,7 +17,7 @@ conform.setup({
 		graphql = { "prettier" },
 		lua = { "stylua" },
 		python = { "isort", "black" },
-		go = { "golangci-lint" },
+		go = { "goimports" },
 		php = { "easy-coding-standard" },
 	},
 	format_on_save = {
@@ -30,7 +30,7 @@ conform.setup({
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
-		require("conform").format({ bufnr = args.buf })
+		conform.format({ bufnr = args.buf })
 	end,
 })
 

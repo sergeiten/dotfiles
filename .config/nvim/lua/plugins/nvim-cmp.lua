@@ -17,7 +17,8 @@ end
 --------------------------------------------------------------------------------------------
 
 -- Fix tabbing
-vim.o.completeopt = "menuone,noselect"
+-- vim.o.completeopt = "menuone,noselect"
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 cmp.setup({
 	experimental = { native_menu = false, ghost_text = false },

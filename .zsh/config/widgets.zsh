@@ -128,3 +128,10 @@ function custom-zle-line-init custom-zle-keymap-select {
     zle reset-prompt
 }
 
+function flutter-watch(){
+  tmux send-keys "flutter run $1 $2 $3 $4 --pid-file=/tmp/tf1.pid" Enter \;\
+  split-window -v \;\
+  send-keys 'npx -y nodemon -e dart -x "cat /tmp/tf1.pid | xargs kill -s USR1"' Enter \;\
+  resize-pane -y 5 -t 1 \;\
+  select-pane -t 0 \;
+}

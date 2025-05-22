@@ -140,6 +140,7 @@ vim.cmd([[
     autocmd FileType wdl setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType r setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType blade setlocal sw=2 ts=2 sts=2 expandtab
+    autocmd FileType dart setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType make setlocal noexpandtab
 
     " Don't continue comment when adding a new line above/under comment

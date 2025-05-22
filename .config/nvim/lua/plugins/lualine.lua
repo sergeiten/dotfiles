@@ -173,7 +173,18 @@ ins_left({
 		end
 		return msg
 	end,
-	icon = " LSP:",
+	icon = "  LSP:",
+	color = { fg = "#ffffff", gui = "bold" },
+})
+
+ins_left({
+	function()
+		local linters = require("lint").get_running()
+		if #linters == 0 then
+			return "󰦕"
+		end
+		return "󱉶 " .. table.concat(linters, ", ")
+	end,
 	color = { fg = "#ffffff", gui = "bold" },
 })
 

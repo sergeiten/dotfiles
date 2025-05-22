@@ -44,6 +44,7 @@ treesitter_configs.setup({
 		"java",
 		"yaml",
 		"tsx",
+		"dart",
 	},
 	highlight = {
 		enable = true,

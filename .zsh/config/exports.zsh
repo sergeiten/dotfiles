@@ -35,6 +35,7 @@ export FZF_DEFAULT_COMMAND='fd --style full --hidden --follow --type f --exclude
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/sbin:$PATH
 export PATH=$HOME/.docker/bin:$PATH
+export PATH=$HOME/Developer/flutter/bin:$PATH
 
 # export PATH=/opt/homebrew/opt/ruby/bin:$PATH
 # export PATH=/opt/homebrew/opt/llvm/bin:$PATH
