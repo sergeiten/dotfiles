@@ -11,7 +11,7 @@ conform.setup({
 		svelte = { "prettier" },
 		css = { "prettier" },
 		html = { "prettier" },
-		json = { "prettier" },
+		json = { "prettier_json" },
 		yaml = { "prettier" },
 		markdown = { "prettier" },
 		graphql = { "prettier" },
@@ -20,19 +20,31 @@ conform.setup({
 		go = { "goimports" },
 		php = { "easy-coding-standard" },
 	},
-	format_on_save = {
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 500,
+	formatters = {
+		prettier_json = {
+			command = "prettier",
+			args = { "--parser", "json" },
+			stdin = true,
+		},
 	},
-})
+	format_on_save = function(bufnr)
+		-- local disable_filetypes = { dart = true }
+		local disable_filetypes = {}
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		conform.format({ bufnr = args.buf })
+		return {
+			lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+			async = false,
+			timeout_ms = 500,
+		}
 	end,
 })
+
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = "*",
+-- 	callback = function(args)
+-- 		conform.format({ bufnr = args.buf })
+-- 	end,
+-- })
 
 set_keymap({
 	key = ",f",

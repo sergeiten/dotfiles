@@ -5,7 +5,7 @@
 local set_keymap = require("utils.set-keymap")
 
 local installer = require("mason")
-local installer_lsp = require("mason-lspconfig")
+-- local installer_lsp = require("mason-lspconfig")
 local installer_tools = require("mason-tool-installer")
 
 ------------------------------------------------------------------------------------------
@@ -13,35 +13,35 @@ local installer_tools = require("mason-tool-installer")
 ------------------------------------------------------------------------------------------
 
 installer.setup({
-    ui = {
-        icons = {
-            package_installed = "",
-            package_pending = "",
-            package_uninstalled = "",
-        },
-    },
+	ui = {
+		icons = {
+			package_installed = "",
+			package_pending = "",
+			package_uninstalled = "",
+		},
+	},
 })
 
-installer_lsp.setup({
-    automatic_installation = true,
-})
+-- installer_lsp.setup({
+-- 	automatic_installation = true,
+-- })
 
 installer_tools.setup({
-    ensure_installed = {
-        "stylua",
-        "shfmt",
-        "prettier",
-        "eslint_d",
-        "shellcheck",
-        "hadolint",
-        "yamllint",
-        "luacheck",
-        "cspell",
-        "actionlint",
-        "fixjson",
-        "gopls",
-        "djlint"
-    },
+	ensure_installed = {
+		"stylua",
+		"shfmt",
+		"prettier",
+		"eslint_d",
+		"shellcheck",
+		"hadolint",
+		"yamllint",
+		"luacheck",
+		"cspell",
+		"actionlint",
+		"fixjson",
+		"gopls",
+		"djlint",
+	},
 })
 
 -- Has to be after lsp_installer as it prepares the server before they can be started
@@ -49,9 +49,9 @@ require("lsp.servers")
 
 -- Setup server diagnostics
 vim.diagnostic.config({
-    signs = true, -- Disable LSP signs
-    underline = true, -- Underline diagnostics
-    virtual_text = true, -- Hide virtual text diagnostics
+	signs = true, -- Disable LSP signs
+	underline = true, -- Underline diagnostics
+	virtual_text = true, -- Hide virtual text diagnostics
 })
 
 ------------------------------------------------------------------------------------------
@@ -59,10 +59,9 @@ vim.diagnostic.config({
 ------------------------------------------------------------------------------------------
 
 set_keymap({
-    key = "<LEADER>ls",
-    actions = function()
-        vim.cmd("Mason")
-    end,
-    description = "Open lsp installer popup buffer",
+	key = "<LEADER>ls",
+	actions = function()
+		vim.cmd("Mason")
+	end,
+	description = "Open lsp installer popup buffer",
 })
-

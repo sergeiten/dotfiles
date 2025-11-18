@@ -36,12 +36,15 @@ export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/sbin:$PATH
 export PATH=$HOME/.docker/bin:$PATH
 export PATH=$HOME/Developer/flutter/bin:$PATH
+export PATH=$HOME/.local/scripts:$PATH
 
 # export PATH=/opt/homebrew/opt/ruby/bin:$PATH
 # export PATH=/opt/homebrew/opt/llvm/bin:$PATH
 export PATH=/opt/homebrew/opt/openjdk@17/bin:$PATH
 export GOPATH=$(go env GOPATH)
 export PATH=$PATH:$GOPATH/bin
+
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
 # export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH

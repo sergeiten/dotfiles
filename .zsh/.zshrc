@@ -13,6 +13,14 @@ foreach piece (
 
 . "$HOME/.cargo/env"
 
+function flutter-watch(){
+  tmux send-keys "flutter run --pid-file=/tmp/flutter.pid" Enter \;\
+  split-window -v \;\
+  send-keys 'nodemon -e dart --watch lib -x "cat /tmp/flutter.pid | xargs kill -s USR1"' Enter \;\
+  resize-pane -y 5 -t 1 \;\
+  select-pane -t 0 \;
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"

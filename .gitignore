@@ -3,3 +3,4 @@ tags
 .zsh/.zsh_history
 .zsh/.zsh_sessions
 .condarc
+.config/nvim/plugin/packer_compiled.lua

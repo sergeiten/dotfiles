@@ -121,7 +121,8 @@ vim.cmd([[
     syntax on
 
     au BufRead,BufNewFile *.ejs set filetype=html
-    au BufNewFile,BufRead *.blade.php set ft=blade
+    au BufRead,BufNewFile *.arb set filetype=json
+    au BufNewFile,BufRead *.blade.php set filetype=blade
 
     autocmd FileType javascript setlocal sw=2 ts=2 sts=2 expandtab
     autocmd FileType javascript.jsx setlocal sw=2 ts=2 sts=0 expandtab

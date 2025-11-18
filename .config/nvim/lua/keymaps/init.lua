@@ -66,6 +66,11 @@ set_keymap({
 			description = "Go to definition",
 		},
 		{
+			key = "gi",
+			actions = vim.lsp.buf.implementation,
+			description = "Go to implementation",
+		},
+		{
 			key = "gdl",
 			actions = function()
 				vim.cmd(":vsplit")
@@ -163,6 +168,24 @@ set_keymap({
 			actions = ":lclose | :cclose<CR>",
 			description = "Close location list or quickfix",
 		},
+		-- {
+		-- 	modes = { "v" },
+		-- 	key = "J",
+		-- 	actions = function()
+		-- 		vim.cmd("m '>+1")
+		-- 		vim.cmd("normal! gv=gv")
+		-- 	end,
+		-- 	description = "Move selected lines down",
+		-- },
+		-- {
+		-- 	modes = { "v" },
+		-- 	key = "K",
+		-- 	actions = function()
+		-- 		vim.cmd("m '<-2")
+		-- 		vim.cmd("normal! gv=gv")
+		-- 	end,
+		-- 	description = "Move selected lines up",
+		-- },
 	},
 })
 
@@ -193,6 +216,18 @@ set_keymap({
 				vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
 			end,
 			description = "Open diagnostic errors only in quickfix",
+		},
+	},
+})
+
+set_keymap({
+	list = {
+		{
+			key = "<C-f>",
+			actions = function()
+				vim.cmd("silent !tmux neww tmux-sessionizer<CR>")
+			end,
+			description = "See neovim log",
 		},
 	},
 })

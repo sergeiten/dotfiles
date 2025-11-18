@@ -1,11 +1,14 @@
+-- UNUSED, prefer to use https://github.com/pmizio/typescript-tools.nvim
+
+local lsp = require("lspconfig")
 local lsp_utils = require("lspconfig.util")
 
-local typescript = require("typescript")
+-- local typescript = require("typescript")
 
 local set_keymap = require("utils.set-keymap")
 local capabilities = require("lsp.utils.capabilities")
 
-typescript.setup({
+lsp.ts_ls.setup({
 	disable_formatting = true,
 	server = {
 		capabilities = capabilities,

@@ -60,17 +60,22 @@ return require("packer").startup({
 			config = load_file("mason"),
 			branch = "main",
 			requires = {
-				{ "williamboman/mason-lspconfig.nvim" },
+				-- { "williamboman/mason-lspconfig.nvim" },
 				{ "whoissethdaniel/mason-tool-installer.nvim" },
 			},
 		})
 		-- use("jose-elias-alvarez/typescript.nvim")
-		use("sergeiten/typescript.nvim")
+		-- use("sergeiten/typescript.nvim")
 		--use({
 		--	"jose-elias-alvarez/null-ls.nvim",
 		--	config = load_file("null-ls"),
 		--	requires = "nvim-lua/plenary.nvim",
 		--})
+		use({
+			"pmizio/typescript-tools.nvim",
+			requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+			config = load_file("typescript-tools"),
+		})
 		use({
 			"karb94/neoscroll.nvim",
 			config = load_file("neoscroll"),
@@ -172,5 +177,32 @@ return require("packer").startup({
 			},
 			config = load_file("flutter-tools"),
 		})
+		use({ "nvim-telescope/telescope-ui-select.nvim" })
+		use({
+			"j-hui/fidget.nvim",
+			config = function()
+				require("fidget").setup()
+			end,
+		})
+		use({
+			"folke/sidekick.nvim",
+			config = function()
+				require("sidekick").setup()
+			end,
+		})
+		-- use({
+		-- 	"github/copilot.vim",
+		-- 	config = load_file("copilot"),
+		-- })
+		-- use({
+		-- 	"yetone/avante.nvim",
+		-- 	branch = "main",
+		-- 	run = "make",
+		-- 	requires = {
+		-- 		{ "MunifTanjim/nui.nvim" },
+		-- 		{ "MeanderingProgrammer/render-markdown.nvim" },
+		-- 	},
+		-- 	config = load_file("avante"),
+		-- })
 	end,
 })
