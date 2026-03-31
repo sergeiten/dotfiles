@@ -1,8 +1,6 @@
-local lsp = require("lspconfig")
-
 local capabilities = require("lsp.utils.capabilities")
 
-lsp.yamlls.setup({
+vim.lsp.config("yamlls", {
 	capabilities = capabilities,
 	on_attach = function(client)
 		client.server_capabilities.documentFormattingProvider = true

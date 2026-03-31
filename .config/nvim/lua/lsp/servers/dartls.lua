@@ -2,7 +2,7 @@ local lsp = require("lspconfig")
 
 local capabilities = require("lsp.utils.capabilities")
 
-lsp.dartls.setup({
+vim.lsp.config("dartls", {
 	cmd = { "dart", "language-server", "--protocol=lsp" },
 	filetypes = { "dart" },
 	init_options = {

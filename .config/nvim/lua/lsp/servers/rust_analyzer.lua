@@ -1,7 +1,5 @@
-local lsp = require("lspconfig")
-
 local capabilities = require("lsp.utils.capabilities")
 
-lsp.rust_analyzer.setup({
-    capabilities = capabilities,
+vim.lsp.config("rust_analyzer", {
+	capabilities = capabilities,
 })

@@ -1,5 +1,3 @@
-local lsp = require("lspconfig")
-
 -- lsp.phpactor.setup({
 -- 	init_options = {
 -- 		-- ["logging.enabled"] = true,
@@ -10,7 +8,7 @@ local lsp = require("lspconfig")
 -- 	},
 -- })
 
-lsp.intelephense.setup({
+vim.lsp.config("intelephense", {
 	settings = {
 		intelephense = {
 			stubs = {

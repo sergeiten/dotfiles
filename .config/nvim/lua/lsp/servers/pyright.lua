@@ -1,4 +1,3 @@
-local lsp = require("lspconfig")
 local util = require("lspconfig.util")
 
 local bin = "pyright-langserver"
@@ -16,7 +15,7 @@ local root_files = {
 
 local capabilities = require("lsp.utils.capabilities")
 
-lsp.pyright.setup({
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
 	cmd = cmd,
 	filetypes = { "python" },
