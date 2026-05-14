@@ -13,7 +13,7 @@
     ~/.zsh: .zsh
     ~/.zshenv: .zshenv
     ~/.tmux.conf: .tmux.conf
-    ~/.config/kitty: .config/kitty
+    # ~/.config/kitty: .config/kitty
     ~/.config/nvim: .config/nvim
     ~/.config/ghostty: .config/ghostty
     ~/.local/scripts/tmux-sessionizer: tmux-sessionizer

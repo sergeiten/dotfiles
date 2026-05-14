@@ -60,17 +60,9 @@ return require("packer").startup({
 			config = load_file("mason"),
 			branch = "main",
 			requires = {
-				-- { "williamboman/mason-lspconfig.nvim" },
 				{ "whoissethdaniel/mason-tool-installer.nvim" },
 			},
 		})
-		-- use("jose-elias-alvarez/typescript.nvim")
-		-- use("sergeiten/typescript.nvim")
-		--use({
-		--	"jose-elias-alvarez/null-ls.nvim",
-		--	config = load_file("null-ls"),
-		--	requires = "nvim-lua/plenary.nvim",
-		--})
 		use({
 			"pmizio/typescript-tools.nvim",
 			requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
@@ -149,19 +141,6 @@ return require("packer").startup({
 				vim.fn["mkdp#util#install"]()
 			end,
 		})
-		-- use({
-		-- 	"jake-stewart/multicursor.nvim",
-		-- 	branch = "1.0",
-		-- 	config = load_file("multicursor"),
-		-- })
-
-		-- use({
-		-- 	"andythigpen/nvim-coverage",
-		-- 	requires = "nvim-lua/plenary.nvim",
-		-- 	-- Optional: needed for PHP when using the cobertura parser
-		-- 	rocks = { "lua-xmlreader" },
-		-- 	config = load_file("nvim-coverage"),
-		-- })
 		use({
 			"mfussenegger/nvim-lint",
 			config = load_file("nvim-lint"),
@@ -186,23 +165,7 @@ return require("packer").startup({
 		})
 		use({
 			"folke/sidekick.nvim",
-			config = function()
-				require("sidekick").setup()
-			end,
+			config = load_file("sidekick"),
 		})
-		-- use({
-		-- 	"github/copilot.vim",
-		-- 	config = load_file("copilot"),
-		-- })
-		-- use({
-		-- 	"yetone/avante.nvim",
-		-- 	branch = "main",
-		-- 	run = "make",
-		-- 	requires = {
-		-- 		{ "MunifTanjim/nui.nvim" },
-		-- 		{ "MeanderingProgrammer/render-markdown.nvim" },
-		-- 	},
-		-- 	config = load_file("avante"),
-		-- })
 	end,
 })

@@ -8,6 +8,8 @@
 -- 	},
 -- })
 
+vim.lsp.enable("intelephense")
+
 vim.lsp.config("intelephense", {
 	settings = {
 		intelephense = {
