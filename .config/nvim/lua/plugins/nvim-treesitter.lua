@@ -2,64 +2,68 @@
 -- Description: Treesitter proxy for nvim
 -- Link: https://github.com/nvim-treesitter/nvim-treesitter
 
-local treesitter_configs = require("nvim-treesitter.configs")
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+-- Register custom blade parser
+vim.api.nvim_create_autocmd("User", {
+	pattern = "TSUpdate",
+	callback = function()
+		require("nvim-treesitter.parsers").blade = {
+			install_info = {
+				url = "https://github.com/EmranMR/tree-sitter-blade",
+				files = { "src/parser.c" },
+				branch = "main",
+			},
+			filetype = "blade",
+		}
+	end,
+})
 
-local set_keymap = require("utils.set-keymap")
-
-------------------------------------------------------------------------------------------
------------------------------------ SETUP ------------------------------------------------
-------------------------------------------------------------------------------------------
-
-parser_config.blade = {
-	install_info = {
-		url = "github.com/EmranMR/tree-sitter-blade", -- local path or git repo
-		files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
-		-- optional entries:
-		branch = "main", -- default branch in case of git repo if different from master
-	},
-	filetype = "blade", -- if filetype does not match the parser name
+local parsers = {
+	"php", "go", "css", "scss", "bash", "make", "markdown", "html",
+	"typescript", "toml", "dockerfile", "vim", "rust", "javascript",
+	"json", "python", "gomod", "lua", "java", "yaml", "tsx", "dart",
 }
 
-treesitter_configs.setup({
-	ensure_installed = {
-		"php",
-		"go",
-		"css",
-		"scss",
-		"bash",
-		"make",
-		"markdown",
-		"html",
-		"typescript",
-		"toml",
-		"dockerfile",
-		"vim",
-		"rust",
-		"javascript",
-		"json",
-		"python",
-		"gomod",
-		"lua",
-		"java",
-		"yaml",
-		"tsx",
-		"dart",
-	},
-	highlight = {
-		enable = true,
-		disable = function(_, bufnr)
-			return vim.api.nvim_buf_line_count(bufnr) > 5000
-		end,
-	},
-	autotag = { enable = true },
-	indent = { enable = true },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<C-]>",
-			node_incremental = "<C-]>",
-			node_decremental = "<C-[>",
-		},
-	},
+-- Install parsers that aren't already installed
+vim.api.nvim_create_autocmd("VimEnter", {
+	once = true,
+	callback = function()
+		local installed = require("nvim-treesitter").get_installed("parsers")
+		local installed_set = {}
+		for _, p in ipairs(installed) do
+			installed_set[p] = true
+		end
+		local missing = vim.tbl_filter(function(p)
+			return not installed_set[p]
+		end, parsers)
+		if #missing > 0 then
+			require("nvim-treesitter").install(missing)
+		end
+	end,
 })
+
+-- Enable treesitter highlighting and indentation for all relevant filetypes
+local filetypes = {
+	"php", "go", "css", "scss", "bash", "make", "markdown", "html",
+	"typescript", "dockerfile", "vim", "rust", "javascript",
+	"json", "python", "lua", "java", "yaml", "tsx", "dart", "blade",
+	"toml", "gomod",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = filetypes,
+	callback = function()
+		vim.treesitter.start()
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
+-- Disable highlight for very large files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = filetypes,
+	callback = function(ev)
+		if vim.api.nvim_buf_line_count(ev.buf) > 5000 then
+			vim.treesitter.stop(ev.buf)
+		end
+	end,
+})
+

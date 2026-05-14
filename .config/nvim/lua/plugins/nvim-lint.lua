@@ -28,6 +28,18 @@ local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 	group = lint_augroup,
 	callback = function()
-		lint.try_lint()
+		local ft = vim.bo.filetype
+		local linters = lint.linters_by_ft[ft]
+		if not linters then
+			return
+		end
+		local available = vim.tbl_filter(function(name)
+			local linter = lint.linters[name]
+			local cmd = type(linter.cmd) == "function" and linter.cmd() or linter.cmd
+			return vim.fn.executable(cmd) == 1
+		end, linters)
+		if #available > 0 then
+			lint.try_lint(available)
+		end
 	end,
 })

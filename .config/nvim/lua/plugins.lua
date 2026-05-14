@@ -28,9 +28,9 @@ return require("packer").startup({
 		})
 		use({
 			"nvim-treesitter/nvim-treesitter",
+			branch = "main",
 			config = load_file("nvim-treesitter"),
 			run = ":TSUpdate all",
-			requires = "nvim-treesitter/playground",
 		})
 		use({
 			"hrsh7th/nvim-cmp",

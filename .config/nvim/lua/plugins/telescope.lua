@@ -14,6 +14,9 @@ telescope.setup({
 	defaults = {
 		path_display = { "smart" },
 		color_devicons = true,
+		preview = {
+			treesitter = false,
+		},
 		mappings = {
 			n = {
 				["<c-d>"] = actions.delete_buffer,
