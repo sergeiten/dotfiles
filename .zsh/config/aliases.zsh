@@ -1,5 +1,6 @@
 alias config="/usr/bin/git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME/.dotfiles"
 alias dev="cd ~/Developer"
+alias docs="cd ~/Library/Mobile\ Documents/iCloud~md~obsidian/Documents"
 alias v="`brew --prefix`/bin/nvim"
 alias gt="git status"
 alias tmux="tmux -2"

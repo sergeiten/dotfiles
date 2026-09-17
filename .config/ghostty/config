@@ -1,1 +1,2 @@
 theme = Monokai Classic
+keybind = shift+enter=text:\x1b\r

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v cwebp >/dev/null 2>&1; then
+    echo "Error: cwebp is not installed."
+    exit 1
+fi
+
+DIR="${1:-.}"
+PATTERN="${2:-*}"
+
+find "$DIR" -type f \( \
+    -iname "${PATTERN}.png" -o \
+    -iname "${PATTERN}.jpg" -o \
+    -iname "${PATTERN}.jpeg" \
+\) | while read -r file; do
+
+    output="${file%.*}.webp"
+
+    echo "Converting:"
+    echo "  $file"
+    echo "  -> $output"
+
+    cwebp -q 80 "$file" -o "$output"
+done
+
+echo "Done."
